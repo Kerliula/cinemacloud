@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE configuration files
+.idea/
+# Optional: Allow shared run configurations
+!.idea/runConfigurations/
