@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@theme {
+  --font-geist: var(--font-geist);
+  --font-poppins: var(--font-poppins);
+}
+
+.padding-page {
+  @apply px-25 py-5;
+}
+
+.glass-light {
+  @apply border border-white/20 bg-white/5 backdrop-blur-md;
+}
+
+.glass-medium {
+  @apply border border-white/40 bg-white/10 backdrop-blur-md;
+}
+
+.glass-dark {
+  @apply border border-white/20 bg-gray-800/20 backdrop-blur-md;
+}
+
+.padding-page-x {
+  @apply px-25;
+}
+
+.padding-page-y {
+  @apply py-5;
+}
+
+.gap-vertical-xs {
+  @apply gap-y-1.5;
+}
+
+.gap-vertical-sm {
+  @apply gap-y-2.5;
+}
+
+.gap-vertical-md {
+  @apply gap-y-4;
+}
+
+.gap-vertical-lg {
+  @apply gap-y-7;
+}
+
+.gap-vertical-xl {
+  @apply gap-y-10;
+}
+
+.gap-vertical-2xl {
+  @apply gap-y-16;
+}
+
+.gap-horizontal-xs {
+  @apply gap-x-1;
+}
+
+.gap-horizontal-sm {
+  @apply gap-x-1.5;
+}
+
+.gap-horizontal-md {
+  @apply gap-x-2.5;
+}
+
+.gap-horizontal-lg {
+  @apply gap-x-6;
+}
+
+.gap-horizontal-xl {
+  @apply gap-x-10;
+}
+
+.gap-horizontal-2xl {
+  @apply gap-x-16;
+}
+
+.section-intro-text {
+  @apply text-xl font-semibold text-white;
+}
+
+.text-primary {
+  @apply text-white;
+}
+
+.text-secondary {
+  @apply text-gray-300;
+}
+
+.text-muted {
+  @apply text-gray-400;
+}
+
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-md {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+.text-shadow-xl {
+  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
+}
+
+.hover-scale {
+  @apply transition-transform duration-300 hover:scale-105;
+}
+
+.transition-base {
+  @apply transition-all duration-300;
+}
+
+.transition-fast {
+  @apply transition-all duration-200;
+}
