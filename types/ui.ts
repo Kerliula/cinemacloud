@@ -1,6 +1,7 @@
+import { ButtonHTMLAttributes, ReactNode } from "react";
+
 export interface LogoProps {
   className?: string;
-  size?: number;
   onClick?: () => void;
 }
 
@@ -20,4 +21,10 @@ export interface Slide {
 
 export interface HeroProps {
   slides: Slide[];
+}
+
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "secondary";
+  icon?: ReactNode;
+  children: ReactNode;
 }

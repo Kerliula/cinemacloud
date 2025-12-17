@@ -15,9 +15,11 @@ export const SliderDots = ({
     {Array.from({ length: slidesLength }).map((_, index) => (
       <button
         key={index}
+        type="button"
         onClick={() => setCurrentSlide(index)}
         className="transition-base relative h-3 w-3"
         aria-label={`Go to slide ${index + 1}`}
+        aria-current={currentSlide === index ? "true" : "false"}
       >
         <div
           className={cn(

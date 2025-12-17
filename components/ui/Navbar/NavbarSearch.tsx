@@ -2,14 +2,14 @@ import { Search, X } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-export default function NavbarSearch() {
+export default function NavbarSearch({ className }: { className?: string }) {
   const [value, setValue] = useState("");
 
   return (
-    <div className="group relative">
+    <div className={cn("group relative", className)}>
       <Search
         className={cn(
-          "pointer-events-none absolute top-1/2 left-4 z-10 h-4 w-4 -translate-y-1/2",
+          "pointer-events-none absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 md:left-4",
           "text-primary transition-base group-focus-within:text-white"
         )}
       />
@@ -17,27 +17,27 @@ export default function NavbarSearch() {
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Search movies, series..."
+        placeholder="Search..."
         aria-label="Search movies and series"
         className={cn(
-          "w-72 rounded-full border border-white/40 bg-white/5 py-3 pr-11 pl-11 backdrop-blur-md",
-          "text-sm font-medium text-white placeholder-gray-400",
+          "w-40 rounded-full border border-white/40 bg-white/5 py-2 pr-9 pl-9 backdrop-blur-md md:w-56 md:py-3 md:pr-11 md:pl-11 lg:w-64 xl:w-72",
+          "text-xs font-medium text-white placeholder-gray-400 md:text-sm",
           "transition-base",
           "hover:border-white/60 hover:bg-white/10",
-          "focus:w-80 focus:border-white/80 focus:bg-white/15 focus:outline-none"
+          "focus:w-48 focus:border-white/80 focus:bg-white/15 focus:outline-none md:focus:w-64 lg:focus:w-72 xl:focus:w-80"
         )}
       />
       {value && (
         <button
           onClick={() => setValue("")}
           className={cn(
-            "absolute top-1/2 right-4 -translate-y-1/2",
+            "absolute top-1/2 right-3 -translate-y-1/2 md:right-4",
             "rounded-full p-1 text-gray-400",
             "transition-fast hover:bg-white/20 hover:text-white"
           )}
           aria-label="Clear search"
         >
-          <X size={14} />
+          <X className="h-3 w-3 md:h-3.5 md:w-3.5" />
         </button>
       )}
     </div>

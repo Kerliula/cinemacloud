@@ -41,6 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 # IDE configuration files
-.idea/
+.idea/*
 # Optional: Allow shared run configurations
 !.idea/runConfigurations/

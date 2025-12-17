@@ -13,12 +13,10 @@ export default function TrendingMovieList({
 }: TrendingMovieListProps) {
   return (
     <div className={cn("gap-vertical-sm flex flex-col", className)}>
-      <h2 className="section-intro-text uppercase text-shadow-md">
-        Trending Movies
-      </h2>
-      <ul className="scrollbar-hide gap-horizontal-md flex justify-between">
+      <h2 className="section-intro-text">Trending Movies</h2>
+      <ul className="scrollbar-hide gap-horizontal-lg flex justify-around overflow-x-auto">
         {moviesList.map((movie) => (
-          <li key={movie.id}>
+          <li key={movie.id} className="flex-shrink-0">
             <MovieItem {...movie} />
           </li>
         ))}

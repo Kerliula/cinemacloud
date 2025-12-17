@@ -4,15 +4,25 @@ import { useState } from "react";
 import { slides } from "@/lib/constants";
 import { HeroTitle } from "./HeroTitle";
 import { HeroTags } from "./HeroTags";
-import { HeroButtons } from "./HeroButtons";
 import { SliderDots } from "./SliderDots";
 import { cn } from "@/lib/utils";
+import { Button } from "../Button";
+
+const HeroButtons = () => {
+  return (
+    <div className="flex flex-col gap-3 sm:gap-4 xl:flex-row">
+      <Button variant="primary">Play</Button>
+      <Button variant="secondary">Add to List</Button>
+    </div>
+  );
+};
 
 export const Hero = ({ className }: { className?: string }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slide = slides?.[currentSlide] ?? null;
 
   if (!slide) {
+    console.warn("Hero: No slide data available for index", currentSlide);
     return null;
   }
 
