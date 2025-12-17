@@ -6,7 +6,17 @@
 }
 
 .padding-page {
-  @apply px-25 py-5;
+  /* Mobile: compact padding */
+  @apply px-4 py-2;
+
+  /* Medium screens: increased padding */
+  @apply md:px-8 md:py-3;
+
+  /* Large screens: more generous padding */
+  @apply lg:px-12 lg:py-4;
+
+  /* Extra large screens: maximum padding */
+  @apply xl:px-25 xl:py-5;
 }
 
 .glass-light {
@@ -22,63 +32,215 @@
 }
 
 .padding-page-x {
-  @apply px-25;
+  /* Mobile: minimal horizontal padding */
+  @apply px-4;
+
+  /* Medium screens: moderate padding */
+  @apply md:px-8;
+
+  /* Large screens: generous padding */
+  @apply lg:px-12;
+
+  /* Extra large screens: maximum padding */
+  @apply xl:px-25;
 }
 
 .padding-page-y {
-  @apply py-5;
+  /* Mobile: minimal vertical padding */
+  @apply py-2;
+
+  /* Medium screens: moderate padding */
+  @apply md:py-3;
+
+  /* Large screens: generous padding */
+  @apply lg:py-4;
+
+  /* Extra large screens: maximum padding */
+  @apply xl:py-5;
 }
 
 .gap-vertical-xs {
-  @apply gap-y-1.5;
+  /* Mobile: minimal vertical gap */
+  @apply gap-y-1;
+
+  /* Medium screens: slightly increased */
+  @apply md:gap-y-1.5;
+
+  /* Large screens: moderate gap */
+  @apply lg:gap-y-2;
+
+  /* Extra large screens: comfortable gap */
+  @apply xl:gap-y-2.5;
 }
 
 .gap-vertical-sm {
-  @apply gap-y-2.5;
+  /* Mobile: small vertical gap */
+  @apply gap-y-1.5;
+
+  /* Medium screens: moderate gap */
+  @apply md:gap-y-2;
+
+  /* Large screens: increased gap */
+  @apply lg:gap-y-2.5;
+
+  /* Extra large screens: generous gap */
+  @apply xl:gap-y-3;
 }
 
 .gap-vertical-md {
-  @apply gap-y-4;
+  /* Mobile: moderate vertical gap */
+  @apply gap-y-2;
+
+  /* Medium screens: increased gap */
+  @apply md:gap-y-2.5;
+
+  /* Large screens: comfortable gap */
+  @apply lg:gap-y-3;
+
+  /* Extra large screens: spacious gap */
+  @apply xl:gap-y-4;
 }
 
 .gap-vertical-lg {
-  @apply gap-y-7;
+  /* Mobile: comfortable vertical gap */
+  @apply gap-y-3;
+
+  /* Medium screens: increased gap */
+  @apply md:gap-y-4;
+
+  /* Large screens: generous gap */
+  @apply lg:gap-y-5;
+
+  /* Extra large screens: spacious gap */
+  @apply xl:gap-y-7;
 }
 
 .gap-vertical-xl {
-  @apply gap-y-10;
+  /* Mobile: generous vertical gap */
+  @apply gap-y-4;
+
+  /* Medium screens: increased gap */
+  @apply md:gap-y-6;
+
+  /* Large screens: spacious gap */
+  @apply lg:gap-y-8;
+
+  /* Extra large screens: maximum gap */
+  @apply xl:gap-y-10;
 }
 
 .gap-vertical-2xl {
-  @apply gap-y-16;
+  /* Mobile: spacious vertical gap */
+  @apply gap-y-6;
+
+  /* Medium screens: increased gap */
+  @apply md:gap-y-8;
+
+  /* Large screens: generous gap */
+  @apply lg:gap-y-12;
+
+  /* Extra large screens: maximum gap */
+  @apply xl:gap-y-16;
 }
 
 .gap-horizontal-xs {
-  @apply gap-x-1;
+  /* Mobile: minimal horizontal gap */
+  @apply gap-x-0.5;
+
+  /* Medium screens: slightly increased */
+  @apply md:gap-x-0.5;
+
+  /* Large screens: moderate gap */
+  @apply lg:gap-x-1.5;
+
+  /* Extra large screens: comfortable gap */
+  @apply xl:gap-x-2;
 }
 
 .gap-horizontal-sm {
-  @apply gap-x-1.5;
+  /* Mobile: small horizontal gap */
+  @apply gap-x-1;
+
+  /* Medium screens: moderate gap */
+  @apply md:gap-x-1.5;
+
+  /* Large screens: increased gap */
+  @apply lg:gap-x-2;
+
+  /* Extra large screens: generous gap */
+  @apply xl:gap-x-2.5;
 }
 
 .gap-horizontal-md {
-  @apply gap-x-2.5;
+  /* Mobile: moderate horizontal gap */
+  @apply gap-x-1.5;
+
+  /* Medium screens: increased gap */
+  @apply md:gap-x-2;
+
+  /* Large screens: comfortable gap */
+  @apply lg:gap-x-2.5;
+
+  /* Extra large screens: spacious gap */
+  @apply xl:gap-x-3;
 }
 
 .gap-horizontal-lg {
-  @apply gap-x-6;
+  /* Mobile: comfortable horizontal gap */
+  @apply gap-x-3;
+
+  /* Medium screens: increased gap */
+  @apply md:gap-x-4;
+
+  /* Large screens: generous gap */
+  @apply lg:gap-x-5;
+
+  /* Extra large screens: spacious gap */
+  @apply xl:gap-x-6;
 }
 
 .gap-horizontal-xl {
-  @apply gap-x-10;
+  /* Mobile: generous horizontal gap */
+  @apply gap-x-5;
+
+  /* Medium screens: increased gap */
+  @apply md:gap-x-7;
+
+  /* Large screens: spacious gap */
+  @apply lg:gap-x-8;
+
+  /* Extra large screens: maximum gap */
+  @apply xl:gap-x-10;
 }
 
 .gap-horizontal-2xl {
-  @apply gap-x-16;
+  /* Mobile: spacious horizontal gap */
+  @apply gap-x-8;
+
+  /* Medium screens: increased gap */
+  @apply md:gap-x-12;
+
+  /* Large screens: generous gap */
+  @apply lg:gap-x-14;
+
+  /* Extra large screens: maximum gap */
+  @apply xl:gap-x-16;
 }
 
 .section-intro-text {
-  @apply text-xl font-semibold text-white;
+  @apply font-semibold text-white uppercase text-shadow-md;
+
+  /* Mobile-first approach with smoother scaling */
+  @apply text-sm;
+
+  /* Small tablets */
+  @apply sm:text-base;
+
+  /* Tablets */
+  @apply md:text-lg;
+
+  /* Small laptops */
+  @apply lg:text-xl;
 }
 
 .text-primary {
@@ -119,4 +281,21 @@
 
 .transition-fast {
   @apply transition-all duration-200;
+}
+
+.nav-side-base-classes {
+  /* Base layout */
+  @apply flex items-center;
+
+  /* Mobile: minimal gap */
+  @apply gap-x-4;
+
+  /* Medium screens: moderate gap */
+  @apply md:gap-x-8;
+
+  /* Large screens: generous gap */
+  @apply lg:gap-x-12;
+
+  /* Extra large screens: maximum gap */
+  @apply xl:gap-x-16;
 }

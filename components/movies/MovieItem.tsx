@@ -4,14 +4,14 @@ import { Movie } from "@/types/movie";
 import { cn } from "@/lib/utils";
 
 const RatingBadge = ({ vote_average }: { vote_average: number }) => {
-  const STAR_SIZE = 13;
+  const STAR_SIZE = 11;
 
   return (
     <div
       className={cn(
         "gap-horizontal-xs flex items-center",
         "glass-medium rounded-full",
-        "px-2.5 py-1"
+        "px-1.5 py-0.5 md:px-2.5 md:py-1"
       )}
     >
       <Star
@@ -19,7 +19,7 @@ const RatingBadge = ({ vote_average }: { vote_average: number }) => {
         height={STAR_SIZE}
         className="fill-amber-400 text-amber-400"
       />
-      <span className="text-primary font-semibold">
+      <span className="text-primary text-xs font-semibold md:text-sm">
         {vote_average.toFixed(1)}
       </span>
     </div>
@@ -47,11 +47,11 @@ export default function MovieItem({
         width={170}
         height={255}
         className={cn(
-          `h-[255px] w-[170px]`,
+          `h-[200px] w-[133px] xl:h-[255px] xl:w-[170px]`,
           "rounded-lg object-cover shadow-lg transition-transform duration-300 hover:scale-105"
         )}
       />
-      <h3 className="truncate text-sm font-medium text-white text-shadow-md">
+      <h3 className="truncate text-xs font-medium text-white text-shadow-md md:text-sm">
         {title}
       </h3>
       <div className="flex items-center justify-between text-xs text-shadow-md">

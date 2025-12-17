@@ -2,13 +2,13 @@ import { Cloud } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LogoProps } from "@/types/ui";
 
-export default function Logo({ className, size = 25, onClick }: LogoProps) {
+export default function Logo({ className, onClick }: LogoProps) {
   return (
     <div
       className={cn(
         "text-primary",
-        "flex items-center gap-2",
-        "rounded-full px-6 py-2.5",
+        "flex items-center gap-1 md:gap-2",
+        "rounded-full px-3 py-1.5 md:px-4 md:py-2 lg:px-6 lg:py-2.5",
         "glass-light",
         onClick && "transition-base cursor-pointer",
         onClick && "hover:border-white/60 hover:bg-white/10",
@@ -26,8 +26,11 @@ export default function Logo({ className, size = 25, onClick }: LogoProps) {
       tabIndex={onClick ? 0 : undefined}
       aria-label={onClick ? "CinemaCloud home" : undefined}
     >
-      <Cloud size={size} aria-hidden="true" />
-      <span className="text-md font-bold uppercase text-shadow-lg">
+      <Cloud
+        aria-hidden="true"
+        className="h-5 w-5 text-shadow-md md:h-6 md:w-6 lg:h-7 lg:w-7"
+      />
+      <span className="xl:text-md hidden text-xs font-bold uppercase text-shadow-md md:text-sm lg:block lg:text-sm">
         CinemaCloud
       </span>
     </div>
