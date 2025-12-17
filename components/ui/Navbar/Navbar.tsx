@@ -5,7 +5,6 @@ import Logo from "@/components/ui/Logo";
 import NavbarLinks from "./NavbarLinks";
 import NavbarSearch from "./NavbarSearch";
 import NavbarProfile from "./NavbarProfile";
-import { Menu } from "lucide-react";
 
 export default function Navbar() {
   const userName = "John Doe";
@@ -21,15 +20,8 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="nav-side-base-classes">
-          {/* Desktop search */}
           <NavbarSearch className="hidden 2xl:flex" />
-
-          <NavbarProfile className="hidden xl:flex" userName={userName} />
-
-          {/* Mobile menu button */}
-          <button className="p-2 xl:hidden">
-            <Menu className="h-6 w-6" />
-          </button>
+          <NavbarProfile userName={userName} />
         </div>
       </nav>
     </header>

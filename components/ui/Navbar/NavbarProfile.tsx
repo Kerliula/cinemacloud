@@ -1,6 +1,7 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, UserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import UserMenu from "./UserMenu";
 
 interface NavbarProfileProps {
   userName?: string;
@@ -12,9 +13,39 @@ export default function NavbarProfile({
   className,
 }: NavbarProfileProps) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsProfileOpen(false);
+      }
+    };
+
+    if (isProfileOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isProfileOpen]);
 
   const handleProfileClick = () => {
     setIsProfileOpen((prev) => !prev);
+  };
+
+  const handleSettingsClick = () => {
+    console.log("Settings clicked");
+    setIsProfileOpen(false);
+    // Navigate to settings page
+  };
+
+  const handleSignOutClick = () => {
+    console.log("Sign out clicked");
+    setIsProfileOpen(false);
+    // Handle sign out logic
   };
 
   const handleSignInClick = () => {
@@ -27,28 +58,43 @@ export default function NavbarProfile({
 
   if (isSignedIn) {
     return (
-      <button
-        className={cn(
-          "flex items-center gap-2",
-          "glass-medium rounded-full px-4 py-2",
-          "hover-scale",
-          className
-        )}
-        onClick={handleProfileClick}
-        type="button"
-        aria-expanded={isProfileOpen}
-        aria-haspopup="menu"
-        aria-label={isProfileOpen ? "Close profile menu" : "Open profile menu"}
-      >
-        <span className="text-sm font-semibold">{userName}</span>
-        <ChevronDown
+      <div className="relative" ref={menuRef}>
+        <button
           className={cn(
-            "h-4 w-4 transition-transform duration-300",
-            isProfileOpen && "rotate-180"
+            "flex items-center gap-2",
+            "glass-medium rounded-full",
+            "px-3 py-1.5 md:px-4 md:py-2 lg:px-6 lg:py-2.5",
+            "hover-scale",
+            className
           )}
-          aria-hidden="true"
+          onClick={handleProfileClick}
+          type="button"
+          aria-expanded={isProfileOpen}
+          aria-haspopup="menu"
+          aria-label={
+            isProfileOpen ? "Close profile menu" : "Open profile menu"
+          }
+        >
+          <span className="hidden text-sm font-semibold sm:block">
+            {userName}
+          </span>
+          <UserRound className="h-4 w-4 text-shadow-md sm:hidden" />
+          <ChevronDown
+            className={cn(
+              "h-4 w-4 transition-transform duration-300",
+              isProfileOpen && "rotate-180"
+            )}
+            aria-hidden="true"
+          />
+        </button>
+
+        <UserMenu
+          isOpen={isProfileOpen}
+          onClose={() => setIsProfileOpen(false)}
+          onSettingsClick={handleSettingsClick}
+          onSignOutClick={handleSignOutClick}
         />
-      </button>
+      </div>
     );
   }
 
