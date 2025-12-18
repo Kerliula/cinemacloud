@@ -7,21 +7,17 @@ const RatingBadge = ({ vote_average }: { vote_average: number }) => {
   const STAR_SIZE = 11;
 
   return (
-    <div
-      className={cn(
-        "gap-horizontal-xs flex items-center",
-        "glass-medium rounded-full",
-        "px-1.5 py-0.5 md:px-2.5 md:py-1"
-      )}
-    >
-      <Star
-        width={STAR_SIZE}
-        height={STAR_SIZE}
-        className="fill-amber-400 text-amber-400"
-      />
-      <span className="text-primary text-xs font-semibold md:text-sm">
-        {vote_average.toFixed(1)}
-      </span>
+    <div className="glass-medium rounded-2xl">
+      <div className="gap-horizontal-xs flex items-center px-3 py-1.5">
+        <Star
+          width={STAR_SIZE}
+          height={STAR_SIZE}
+          className="fill-amber-400 text-amber-400"
+        />
+        <span className="text-primary text-xs font-semibold md:text-sm">
+          {vote_average.toFixed(1)}
+        </span>
+      </div>
     </div>
   );
 };
@@ -47,15 +43,17 @@ export default function MovieItem({
         width={170}
         height={255}
         className={cn(
-          `h-[200px] w-[133px] xl:h-[255px] xl:w-[170px]`,
+          `h-[200px] w-[153px] xl:h-[255px] xl:w-[170px]`,
           "rounded-lg object-cover shadow-lg transition-transform duration-300 hover:scale-105"
         )}
       />
-      <h3 className="truncate text-xs font-medium text-white text-shadow-md md:text-sm">
+      <h3 className="text-primary truncate text-xs font-medium text-shadow-md md:text-sm">
         {title}
       </h3>
-      <div className="flex items-center justify-between text-xs text-shadow-md">
-        <p className="font-medium text-gray-300">{releaseYear}</p>
+      <div className="flex items-center justify-between text-xs">
+        <p className="text-secondary font-medium text-shadow-md">
+          {releaseYear}
+        </p>
         <RatingBadge vote_average={vote_average} />
       </div>
     </div>

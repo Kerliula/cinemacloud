@@ -3,13 +3,13 @@ import { moviesList } from "@/lib/constants";
 import TrendingMovieList from "@/components/movies/TrendingMovieList";
 
 const Page = () => {
+  const SECTION_CLASS = "flex-1 justify-center";
+
   return (
-    <main className="padding-page-y gap-vertical-xl flex h-screen flex-col">
-      {/* mt-auto is used in both, to push the Hero and TrendingMovieList to the bottom of the page
-        since Hero text height may vary and we want consistent spacing. */}
-      <Hero className="mt-auto" />
-      <TrendingMovieList className="mt-auto" moviesList={moviesList} />
-    </main>
+    <>
+      <Hero className={SECTION_CLASS} />
+      <TrendingMovieList className={SECTION_CLASS} moviesList={moviesList} />
+    </>
   );
 };
 

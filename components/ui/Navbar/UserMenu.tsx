@@ -59,7 +59,7 @@ export default function UserMenu({
           "text-base text-white transition-colors sm:text-sm",
           "hover:bg-red-500/20 hover:text-red-300",
           "focus:bg-red-500/20 focus:text-red-300 focus:outline-none",
-          "active:bg-red-500/30" // Better feedback on touch
+          "active:bg-red-500/30"
         )}
         onClick={onSignOutClick}
         role="menuitem"

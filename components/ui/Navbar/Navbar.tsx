@@ -7,7 +7,7 @@ import NavbarSearch from "./NavbarSearch";
 import NavbarProfile from "./NavbarProfile";
 
 export default function Navbar() {
-  const userName = "John Doe";
+  const userName = "";
 
   return (
     <header>

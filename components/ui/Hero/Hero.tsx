@@ -6,13 +6,17 @@ import { HeroTitle } from "./HeroTitle";
 import { HeroTags } from "./HeroTags";
 import { SliderDots } from "./SliderDots";
 import { cn } from "@/lib/utils";
-import { Button } from "../Button";
+import { Button } from "@/components/ui";
 
 const HeroButtons = () => {
   return (
-    <div className="flex flex-col gap-3 sm:gap-4 xl:flex-row">
-      <Button variant="primary">Play</Button>
-      <Button variant="secondary">Add to List</Button>
+    <div className="gap-horizontal-lg gap-vertical-lg flex flex-col xl:flex-row">
+      <Button size="md" variant="primary">
+        Play
+      </Button>
+      <Button size="md" variant="secondary">
+        Add to List
+      </Button>
     </div>
   );
 };
@@ -27,7 +31,7 @@ export const Hero = ({ className }: { className?: string }) => {
   }
 
   return (
-    <div className={cn("relative flex flex-col gap-8", className)}>
+    <div className={cn("gap-vertical-md relative flex flex-col", className)}>
       <HeroTitle title={slide.title} description={slide.description} />
       <HeroTags year={slide.year} genres={slide.genres} />
       <HeroButtons />

@@ -1,4 +1,5 @@
-import Navbar from "./Navbar/Navbar";
-import MovieItem from "../movies/MovieItem";
+import Button from "./Button";
+import Input from "./Input";
+import Checkbox from "./Checkbox";
 
-export { Navbar, MovieItem };
+export { Button, Input, Checkbox };

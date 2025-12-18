@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 @theme {
   --font-geist: var(--font-geist);
   --font-poppins: var(--font-poppins);
@@ -17,6 +23,20 @@
 
   /* Extra large screens: maximum padding */
   @apply xl:px-25 xl:py-5;
+}
+
+.modal-width {
+  /* Mobile: full width with margin */
+  @apply w-full max-w-sm;
+
+  /* Medium screens: increased max width */
+  @apply md:max-w-lg;
+
+  /* Large screens: further increased max width */
+  @apply lg:max-w-xl;
+
+  /* Extra large screens: maximum width */
+  @apply xl:max-w-2xl;
 }
 
 .glass-light {
@@ -298,4 +318,12 @@
 
   /* Extra large screens: maximum gap */
   @apply xl:gap-x-16;
+}
+
+.backdrop {
+  @apply absolute inset-0 bg-black/60 backdrop-blur-sm;
+}
+
+.active-text {
+  @apply cursor-pointer text-white/70 transition-colors duration-200 hover:text-white;
 }

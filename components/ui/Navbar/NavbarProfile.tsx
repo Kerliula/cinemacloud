@@ -2,6 +2,7 @@ import { ChevronDown, UserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect } from "react";
 import UserMenu from "./UserMenu";
+import AuthModal from "@/components/ui/Auth/AuthModal";
 
 interface NavbarProfileProps {
   userName?: string;
@@ -48,10 +49,10 @@ export default function NavbarProfile({
     // Handle sign out logic
   };
 
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
+
   const handleSignInClick = () => {
-    // Navigate to the sign-in route or open the sign-in modal
-    // Example: router.push("/sign-in") or authModalContext.open()
-    console.log("Sign In button clicked");
+    setIsAuthOpen(true);
   };
 
   const isSignedIn = !!userName;
@@ -99,17 +100,21 @@ export default function NavbarProfile({
   }
 
   return (
-    <button
-      className={cn(
-        "glass-medium rounded-full px-6 py-2.5",
-        "text-sm font-semibold",
-        "hover-scale",
-        className
-      )}
-      onClick={handleSignInClick}
-      type="button"
-    >
-      Sign In
-    </button>
+    <>
+      <button
+        className={cn(
+          "glass-medium rounded-full px-6 py-2.5",
+          "text-sm font-semibold",
+          "hover-scale",
+          className
+        )}
+        onClick={handleSignInClick}
+        type="button"
+      >
+        Sign In
+      </button>
+
+      <AuthModal open={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
+    </>
   );
 }
