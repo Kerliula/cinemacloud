@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { slides } from "@/lib/constants";
 import { HeroTitle } from "./HeroTitle";
-import { HeroTags } from "./HeroTags";
 import { SliderDots } from "./SliderDots";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui";
+import { MovieTags } from "@/components/movies/MovieTags";
 
 const HeroButtons = () => {
   return (
@@ -33,7 +33,7 @@ export const Hero = ({ className }: { className?: string }) => {
   return (
     <div className={cn("gap-vertical-md relative flex flex-col", className)}>
       <HeroTitle title={slide.title} description={slide.description} />
-      <HeroTags year={slide.year} genres={slide.genres} />
+      <MovieTags year={slide.year} genres={slide.genres} />
       <HeroButtons />
       <SliderDots
         slidesLength={slides.length}

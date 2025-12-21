@@ -74,3 +74,9 @@ export interface TrendingMovieListProps {
   className?: string;
   moviesList: Movie[];
 }
+
+export interface TitleProps {
+  children: React.ReactNode;
+  className?: string;
+  as?: "h1" | "h2" | "h3";
+}

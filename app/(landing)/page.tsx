@@ -3,12 +3,12 @@ import { moviesList } from "@/lib/constants";
 import TrendingMovieList from "@/components/movies/TrendingMovieList";
 
 const Page = () => {
-  const SECTION_CLASS = "flex-1 justify-center";
-
   return (
     <>
-      <Hero className={SECTION_CLASS} />
-      <TrendingMovieList className={SECTION_CLASS} moviesList={moviesList} />
+      {/* mt-auto pushes content to the bottom, keeping spacing consistent
+      despite the hero’s dynamic height */}
+      <Hero className="mt-auto" />
+      <TrendingMovieList className="mt-auto" moviesList={moviesList} />
     </>
   );
 };

@@ -97,3 +97,28 @@ export const NAV_ITEMS = [
   { id: 3, name: "Series", href: "/series", count: 874 },
   { id: 4, name: "Animation", href: "/animation", count: 642 },
 ];
+
+export const SCENES_IMG = [
+  "/scenes/1.png",
+  "/scenes/2.png",
+  "/scenes/3.png",
+  "/scenes/4.png",
+  "/scenes/2.png",
+  "/scenes/3.png",
+  "/scenes/2.png",
+  "/scenes/3.png",
+  "/scenes/4.png",
+  "/scenes/2.png",
+  "/scenes/3.png",
+];
+
+export const CASTS = [
+  "Kelly Marie Tran",
+  "Awkwafina",
+  "Gemma Chan",
+  "Daniel Dae Kim",
+  "Benedict Wong",
+  "Sandra Oh",
+  "Jona Xiao",
+  "Alan Tudyk",
+];
