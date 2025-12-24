@@ -15,7 +15,7 @@ const RatingBadge = ({ vote_average }: { vote_average: number }) => {
           className="fill-amber-400 text-amber-400"
         />
         <span className="text-primary text-xs font-semibold md:text-sm">
-          {vote_average.toFixed(1)}
+          {vote_average?.toFixed(1)}
         </span>
       </div>
     </div>

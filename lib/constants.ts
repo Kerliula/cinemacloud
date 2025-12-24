@@ -1,3 +1,5 @@
+import { release } from "os";
+
 export const INPUT_ICON_SIZE = 18;
 
 export const moviesList = [
@@ -62,6 +64,7 @@ export const moviesList = [
 export const slides = [
   {
     title: "RAYA AND THE\nLAST DRAGON",
+    src: "/trailers/s.mp4",
     description:
       "In a realm known as Kumandra, a re-imagined Earth inhabited by an ancient civilization, a warrior named Raya is determined to find the last dragon.",
     year: "2021",
@@ -119,6 +122,28 @@ export const CASTS = [
   "Daniel Dae Kim",
   "Benedict Wong",
   "Sandra Oh",
-  "Jona Xiao",
-  "Alan Tudyk",
+];
+
+export const RECOMMENDED_MOVIES = [
+  {
+    id: 1,
+    title: "Movie A",
+    poster_path: "/1.png",
+    vote_average: 8.2,
+    release_date: "2020",
+  },
+  {
+    id: 2,
+    title: "Movie B",
+    poster_path: "/2.png",
+    vote_average: 7.9,
+    release_date: "2021",
+  },
+  {
+    id: 3,
+    title: "Movie C",
+    poster_path: "/3.png",
+    vote_average: 8.5,
+    release_date: "2022",
+  },
 ];

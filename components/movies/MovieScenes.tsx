@@ -1,104 +1,100 @@
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useRef, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
+import { MovieScenesProps } from "@/types/ui";
+import { useState } from "react";
+import ImageViewer from "@/components/ImageViewer";
 
-const SCENES_IMG = [
-  "/scenes/1.png",
-  "/scenes/2.png",
-  "/scenes/3.png",
-  "/scenes/4.png",
-  "/scenes/2.png",
-  "/scenes/3.png",
-  "/scenes/2.png",
-  "/scenes/3.png",
-  "/scenes/3.png",
-  "/scenes/2.png",
-  "/scenes/3.png",
-];
-
-const MovieScenes = () => {
-  const scenesScrollRef = useRef<HTMLDivElement>(null);
-  const [showArrows, setShowArrows] = useState(false);
-
-  useEffect(() => {
-    const checkOverflow = () => {
-      if (scenesScrollRef.current) {
-        setShowArrows(
-          scenesScrollRef.current.scrollWidth >
-            scenesScrollRef.current.clientWidth
-        );
-      }
-    };
-
-    const timeoutId = setTimeout(checkOverflow, 100); // Delay to ensure images are loaded
-    const handleResize = () => checkOverflow();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const scrollScenes = (direction: "left" | "right") => {
-    if (scenesScrollRef.current) {
-      const scrollAmount = 400;
-      scenesScrollRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
+const ArrowButton = ({
+  direction,
+  onClick,
+  show,
+}: {
+  direction: "left" | "right";
+  onClick: () => void;
+  show: boolean;
+}) => {
+  if (!show) return null;
 
   return (
-    <div className="gap-vertical-md flex flex-col">
-      <h3 className="section-intro-text">Scenes</h3>
-      <div className="relative">
-        {showArrows && (
-          <button
-            onClick={() => scrollScenes("left")}
-            className={cn(
-              "absolute top-1/2 left-2 z-10 -translate-y-1/2",
-              "rounded-full bg-black/50 p-2 text-white",
-              "transition-all hover:bg-black/70"
-            )}
-            aria-label="Previous scenes"
+    <button
+      onClick={onClick}
+      className={cn(
+        "absolute top-1/2 z-10 -translate-y-1/2",
+        direction === "left" ? "left-2" : "right-2",
+        "rounded-full bg-black/50 p-2 text-white transition-all hover:bg-black/70",
+        "opacity-0 group-hover:opacity-100 focus:opacity-100 focus:ring-2 focus:ring-white focus:outline-none"
+      )}
+      aria-label={`Scroll to ${direction} scenes`}
+    >
+      {direction === "left" ? (
+        <ChevronLeft size={24} />
+      ) : (
+        <ChevronRight size={24} />
+      )}
+    </button>
+  );
+};
+
+const MovieScenes = ({
+  scenes,
+  scrollAmount = 400,
+  imageWidth = 200,
+  imageHeight = 100,
+}: MovieScenesProps) => {
+  const { scrollRef, showArrows, canScrollLeft, canScrollRight, scroll } =
+    useHorizontalScroll();
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  if (scenes.length === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      {selectedImage && (
+        <ImageViewer
+          src={selectedImage}
+          onClose={() => setSelectedImage(null)}
+        />
+      )}
+      <section className="gap-vertical-md flex flex-col">
+        <h3 className="section-intro-text">Scenes</h3>
+        <div className="group relative">
+          <ArrowButton
+            direction="left"
+            onClick={() => scroll("left", scrollAmount)}
+            show={showArrows && canScrollLeft}
+          />
+          {/* Scenes */}
+          <div
+            ref={scrollRef}
+            className="gap-horizontal-md scrollbar-hide flex snap-x snap-mandatory overflow-x-auto"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            <ChevronLeft size={24} />
-          </button>
-        )}
-        <div
-          ref={scenesScrollRef}
-          className="gap-horizontal-md scrollbar-hide flex overflow-x-auto"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-        >
-          {SCENES_IMG.map((src, index) => (
-            <Image
-              key={index}
-              src={src}
-              alt={`Scene ${index + 1}`}
-              width={200}
-              height={120}
-              className="flex-shrink-0 rounded-md"
-            />
-          ))}
+            {scenes.map((src, index) => (
+              <div key={index} className="relative snap-start">
+                <Image
+                  src={src}
+                  alt={`Scene ${index + 1}`}
+                  width={imageWidth}
+                  height={imageHeight}
+                  className={`h-[${imageHeight}px] cursor-pointer rounded-md object-cover`}
+                  loading={index < 3 ? "eager" : "lazy"}
+                  onClick={() => setSelectedImage(src)}
+                />
+              </div>
+            ))}
+          </div>
+          <ArrowButton
+            direction="right"
+            onClick={() => scroll("right", scrollAmount)}
+            show={showArrows && canScrollRight}
+          />
         </div>
-        {showArrows && (
-          <button
-            onClick={() => scrollScenes("right")}
-            className={cn(
-              "absolute top-1/2 right-2 z-10 -translate-y-1/2",
-              "rounded-full bg-black/50 p-2 text-white",
-              "transition-all hover:bg-black/70"
-            )}
-            aria-label="Next scenes"
-          >
-            <ChevronRight size={24} />
-          </button>
-        )}
-      </div>
-    </div>
+      </section>
+    </>
   );
 };
 

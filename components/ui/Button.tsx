@@ -35,6 +35,7 @@ const Button = ({
       "hover:border-white/50 hover:bg-white/10 hover:shadow-lg",
       "active:scale-95"
     ),
+    danger: cn("glass-dark !bg-red-600/50", "hover-scale"),
   };
 
   return (
@@ -48,8 +49,8 @@ const Button = ({
       )}
       {...props}
     >
-      {icon && <span className="flex items-center">{icon}</span>}
-      <span className="uppercase">{children}</span>
+      {icon && <span className="mt-1">{icon}</span>}
+      {children && <span className="uppercase">{children}</span>}
     </button>
   );
 };

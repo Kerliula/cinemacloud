@@ -1,6 +1,6 @@
 import { Hero } from "@/components/ui/Hero/Hero";
 import { moviesList } from "@/lib/constants";
-import TrendingMovieList from "@/components/movies/TrendingMovieList";
+import MoviesList from "@/components/movies/MoviesList";
 
 const Page = () => {
   return (
@@ -8,7 +8,12 @@ const Page = () => {
       {/* mt-auto pushes content to the bottom, keeping spacing consistent
       despite the hero’s dynamic height */}
       <Hero className="mt-auto" />
-      <TrendingMovieList className="mt-auto" moviesList={moviesList} />
+      <MoviesList
+        className="mt-auto"
+        moviesList={moviesList}
+        title="Trending Movies"
+        justify="between"
+      />
     </>
   );
 };
