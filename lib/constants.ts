@@ -1,3 +1,7 @@
+import { release } from "os";
+
+export const INPUT_ICON_SIZE = 18;
+
 export const moviesList = [
   {
     id: 1,
@@ -60,6 +64,7 @@ export const moviesList = [
 export const slides = [
   {
     title: "RAYA AND THE\nLAST DRAGON",
+    src: "/trailers/s.mp4",
     description:
       "In a realm known as Kumandra, a re-imagined Earth inhabited by an ancient civilization, a warrior named Raya is determined to find the last dragon.",
     year: "2021",
@@ -94,4 +99,51 @@ export const NAV_ITEMS = [
   { id: 2, name: "Movies", href: "/movies", count: 1231 },
   { id: 3, name: "Series", href: "/series", count: 874 },
   { id: 4, name: "Animation", href: "/animation", count: 642 },
+];
+
+export const SCENES_IMG = [
+  "/scenes/1.png",
+  "/scenes/2.png",
+  "/scenes/3.png",
+  "/scenes/4.png",
+  "/scenes/2.png",
+  "/scenes/3.png",
+  "/scenes/2.png",
+  "/scenes/3.png",
+  "/scenes/4.png",
+  "/scenes/2.png",
+  "/scenes/3.png",
+];
+
+export const CASTS = [
+  "Kelly Marie Tran",
+  "Awkwafina",
+  "Gemma Chan",
+  "Daniel Dae Kim",
+  "Benedict Wong",
+  "Sandra Oh",
+];
+
+export const RECOMMENDED_MOVIES = [
+  {
+    id: 1,
+    title: "Movie A",
+    poster_path: "/1.png",
+    vote_average: 8.2,
+    release_date: "2020",
+  },
+  {
+    id: 2,
+    title: "Movie B",
+    poster_path: "/2.png",
+    vote_average: 7.9,
+    release_date: "2021",
+  },
+  {
+    id: 3,
+    title: "Movie C",
+    poster_path: "/3.png",
+    vote_average: 8.5,
+    release_date: "2022",
+  },
 ];

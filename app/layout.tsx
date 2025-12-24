@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Poppins } from "next/font/google";
 import "@/styles/global.css";
 import Navbar from "@/components/ui/Navbar/Navbar";
-import BackgroundImage from "@/components/layout/BackgroundImage";
+import { cn } from "@/lib/utils";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -16,25 +16,30 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "CinemaCloud",
+  title: {
+    default: "CinemaCloud",
+    template: "%s • CinemaCloud",
+  },
   description: "Watch movies and TV shows online for free.",
 };
 
+const STACK = "flex flex-col gap-vertical-lg justify-around";
+
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geist.variable} ${poppins.variable} relative antialiased`}
+        className={cn(
+          geist.variable,
+          poppins.variable,
+          "padding-page relative min-h-dvh antialiased",
+          STACK
+        )}
       >
-        <BackgroundImage imageUrl="/wallpaper.jpg" />
-        <div className="padding-page flex h-screen flex-col justify-around">
-          <Navbar />
-          {children}
-        </div>
+        <Navbar />
+        <main className={cn("flex-1", STACK)}>{children}</main>
       </body>
     </html>
   );

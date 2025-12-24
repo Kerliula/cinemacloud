@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
+import { Movie } from "./movie";
 
 export interface LogoProps {
   className?: string;
@@ -24,7 +25,82 @@ export interface HeroProps {
 }
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "danger";
+  size?: "sm" | "md" | "lg";
   icon?: ReactNode;
-  children: ReactNode;
+  children?: ReactNode;
+}
+
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  icon?: React.ReactNode;
+  hideLabel?: boolean;
+}
+
+export interface AuthModalProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+export interface LoginFormProps {
+  onSwitch?: () => void;
+  onClose?: () => void;
+}
+
+export interface RegisterFormProps {
+  onSwitch?: () => void;
+  onClose?: () => void;
+}
+
+export interface AuthFooterProps {
+  prompt: React.ReactNode;
+  actionLabel?: string;
+  onSwitchAction?: () => void;
+}
+
+export interface CheckboxProps {
+  id?: string;
+  name?: string;
+  checked?: boolean;
+  defaultChecked?: boolean;
+  onChange?: (checked: boolean) => void;
+  label?: React.ReactNode;
+  disabled?: boolean;
+  className?: string;
+  required?: boolean;
+}
+
+export interface TrendingMovieListProps {
+  className?: string;
+  moviesList: Movie[];
+  title: string;
+  justify?: "start" | "center" | "end" | "between" | "around";
+}
+
+export interface TitleProps {
+  children: React.ReactNode;
+  className?: string;
+  as?: "h1" | "h2" | "h3";
+}
+
+export interface MoviePlayerAndInfoProps {
+  movie: {
+    title: string;
+    description: string;
+    year: string;
+    genres: string[];
+    rating: number;
+    duration: string;
+    director: string;
+    cast: string[];
+    src: string;
+    poster: string;
+  };
+}
+
+export interface MovieScenesProps {
+  scenes: string[];
+  scrollAmount?: number;
+  imageWidth?: number;
+  imageHeight?: number;
 }
