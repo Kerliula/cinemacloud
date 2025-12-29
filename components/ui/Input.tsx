@@ -2,10 +2,34 @@ import { forwardRef, useId } from "react";
 import { cn } from "@/lib/utils";
 import { InputProps } from "@/types/ui";
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, icon, hideLabel = false, className, id, ...props }, ref) => {
+interface InputPropsExtended extends InputProps {
+  colorMode?: "light" | "dark" | "medium";
+  onSubmit?: (e: React.FormEvent<HTMLInputElement>) => void;
+}
+
+const Input = forwardRef<HTMLInputElement, InputPropsExtended>(
+  (
+    {
+      colorMode = "dark",
+      label,
+      icon,
+      hideLabel = false,
+      className,
+      id,
+      onSubmit,
+      ...props
+    },
+    ref
+  ) => {
     const autoId = useId();
     const inputId = id ?? `input-${autoId}`;
+
+    const colorModeClass =
+      colorMode === "light"
+        ? "glass-light"
+        : colorMode === "dark"
+          ? "glass-dark"
+          : "glass-medium";
 
     const showLabel = label && !hideLabel;
 
@@ -31,11 +55,17 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             id={inputId}
             ref={ref}
             className={cn(
-              "glass-dark w-full rounded-md py-3 pr-3",
+              colorModeClass,
+              "w-full rounded-md py-3 pr-3",
               "text-primary",
               paddingLeft,
               className
             )}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                onSubmit?.(e);
+              }
+            }}
             {...props}
           />
         </div>

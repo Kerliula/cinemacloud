@@ -1,12 +1,23 @@
+"use client";
+
 import { Search, X } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 export default function NavbarSearch({ className }: { className?: string }) {
   const [value, setValue] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (value.trim()) {
+      router.push(`/search?q=${encodeURIComponent(value.trim())}`);
+    }
+  };
 
   return (
-    <div className={cn("group relative", className)}>
+    <form onSubmit={handleSubmit} className={cn("group relative", className)}>
       <Search
         className={cn(
           "pointer-events-none absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 md:left-4",
@@ -17,6 +28,11 @@ export default function NavbarSearch({ className }: { className?: string }) {
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSubmit(e);
+          }
+        }}
         placeholder="Search..."
         aria-label="Search movies and series"
         className={cn(
@@ -40,6 +56,6 @@ export default function NavbarSearch({ className }: { className?: string }) {
           <X className="h-3 w-3 md:h-3.5 md:w-3.5" />
         </button>
       )}
-    </div>
+    </form>
   );
 }
