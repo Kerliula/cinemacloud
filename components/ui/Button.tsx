@@ -11,16 +11,16 @@ const Button = ({
 }: ButtonProps) => {
   const baseStyles = cn(
     "transition-base rounded-full font-semibold uppercase",
-    "flex items-center justify-center gap-horizontal-md",
+    "flex items-center justify-center gap-horizontal-sm",
     "focus:ring-2 focus:ring-purple-400/20 focus:ring-offset-2 focus:outline-none",
     "text-primary"
   );
 
   const sizeStyles = {
-    sm: cn("text-xs px-4 py-2 xs:py-2 sm:px-6 sm:py-3 sm:text-sm"),
+    sm: cn("text-xs px-4 py-2.5 xs:py-2 sm:px-5 sm:py-2.5"),
     md: cn(
-      "text-sm px-5 py-2 xs:py-2 sm:px-8 sm:py-2 sm:text-base",
-      "md:px-10 md:py-4 lg:px-12 lg:py-4 lg:text-lg xl:px-16 xl:py-4"
+      "text-sm px-5 py-2 xs:py-2 sm:px-8 sm:py-2 sm:text-sm",
+      "md:px-10 md:py-4 lg:px-12 lg:py-4 lg:text-md xl:px-16 xl:py-4"
     ),
     lg: cn(
       "text-sm px-8 py-3 sm:px-10 sm:py-4 md:px-12 md:py-5",
@@ -49,7 +49,7 @@ const Button = ({
       )}
       {...props}
     >
-      {icon && <span className="mt-1">{icon}</span>}
+      {icon && <span>{icon}</span>}
       {children && <span className="uppercase">{children}</span>}
     </button>
   );

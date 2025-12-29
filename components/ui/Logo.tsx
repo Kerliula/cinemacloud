@@ -1,10 +1,17 @@
 import { Cloud } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LogoProps } from "@/types/ui";
+import Link from "next/link";
 
-export default function Logo({ className, onClick }: LogoProps) {
+export default function Logo({
+  className,
+  onClick,
+  linkHref = "/",
+}: LogoProps) {
   return (
-    <div
+    <Link
+      href={linkHref}
+      passHref
       className={cn(
         "text-primary",
         "flex items-center gap-1 md:gap-2",
@@ -33,6 +40,6 @@ export default function Logo({ className, onClick }: LogoProps) {
       <span className="xl:text-md hidden text-xs font-bold uppercase text-shadow-md md:text-sm lg:block lg:text-sm">
         CinemaCloud
       </span>
-    </div>
+    </Link>
   );
 }

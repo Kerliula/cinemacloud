@@ -1,9 +1,12 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
 import { Movie } from "./movie";
+import { sortOptions } from "@/lib/sortOptions";
+import { filterOptions } from "@/lib/filterOptions";
 
 export interface LogoProps {
   className?: string;
   onClick?: () => void;
+  linkHref?: string;
 }
 
 export interface NavItem {
@@ -72,9 +75,11 @@ export interface CheckboxProps {
 
 export interface TrendingMovieListProps {
   className?: string;
+  showTitle?: boolean;
   moviesList: Movie[];
-  title: string;
+  title?: string;
   justify?: "start" | "center" | "end" | "between" | "around";
+  layout?: "horizontal" | "vertical-grid";
 }
 
 export interface TitleProps {
@@ -103,4 +108,41 @@ export interface MovieScenesProps {
   scrollAmount?: number;
   imageWidth?: number;
   imageHeight?: number;
+}
+
+export interface MoviesSorterProps {
+  onSortChange?: (sortValue: string) => void;
+  defaultValue?: string;
+  className?: string;
+}
+
+export interface SortOptionItemProps {
+  option: (typeof sortOptions)[number];
+  isSelected: boolean;
+  onSelect: (value: string) => void;
+}
+
+export interface MoviesFilterProps {
+  onFilterChange?: (filters: Record<string, string[]>) => void;
+  defaultFilters?: Record<string, string[]>;
+  className?: string;
+}
+
+export interface FilterOptionItemProps {
+  filter: (typeof filterOptions)[number];
+  selectedValues: string[];
+  onToggle: (filterId: string, value: string) => void;
+}
+export interface FilterMenuProps {
+  isOpen: boolean;
+  selectedFilters: Record<string, string[]>;
+  onToggleFilter: (filterId: string, value: string) => void;
+  onClose: () => void;
+  onApply: () => void;
+  onClear: () => void;
+}
+
+export interface ListPageProps {
+  title: string;
+  itemsList: Movie[];
 }

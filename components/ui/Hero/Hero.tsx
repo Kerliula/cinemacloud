@@ -33,7 +33,7 @@ export const Hero = ({ className }: { className?: string }) => {
   return (
     <div className={cn("gap-vertical-md relative flex flex-col", className)}>
       <HeroTitle title={slide.title} description={slide.description} />
-      <MovieTags year={slide.year} genres={slide.genres} />
+      <MovieTags tags={[slide.year, ...slide.genres]} />
       <HeroButtons />
       <SliderDots
         slidesLength={slides.length}

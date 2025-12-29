@@ -275,6 +275,10 @@ body {
   @apply text-gray-400;
 }
 
+.bg-primary {
+  @apply bg-purple-800;
+}
+
 .text-shadow-sm {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
@@ -326,4 +330,24 @@ body {
 
 .active-text {
   @apply cursor-pointer text-white/70 transition-colors duration-200 hover:text-white;
+}
+
+.layout-base {
+  @apply flex min-h-dvh flex-col gap-y-3 px-4 py-2 md:gap-y-4 md:px-8 md:py-3 lg:gap-y-5 lg:px-12 lg:py-4 xl:gap-y-7 xl:px-25 xl:py-5;
+}
+
+.padding-xs {
+  @apply p-1;
+}
+
+.padding-sm {
+  @apply p-1.5;
+}
+
+.padding-md {
+  @apply p-2;
+}
+
+.padding-lg {
+  @apply p-4;
 }
