@@ -23,24 +23,12 @@ export const metadata: Metadata = {
   description: "Watch movies and TV shows online for free.",
 };
 
-const STACK = "flex flex-col gap-vertical-lg justify-around";
-
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          geist.variable,
-          poppins.variable,
-          "padding-page relative min-h-dvh antialiased",
-          STACK
-        )}
-      >
-        <Navbar />
-        <main className={cn("flex-1", STACK)}>{children}</main>
-      </body>
+      <body className={cn(geist.variable, poppins.variable)}>{children}</body>
     </html>
   );
 }

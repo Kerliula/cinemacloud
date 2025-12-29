@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect } from "react";
 import UserMenu from "./UserMenu";
 import AuthModal from "@/components/ui/Auth/AuthModal";
+import Button from "@/components/ui/Button";
 
 interface NavbarProfileProps {
   userName?: string;
@@ -101,18 +102,9 @@ export default function NavbarProfile({
 
   return (
     <>
-      <button
-        className={cn(
-          "glass-medium rounded-full px-6 py-2.5",
-          "text-sm font-semibold",
-          "hover-scale",
-          className
-        )}
-        onClick={handleSignInClick}
-        type="button"
-      >
-        Sign In
-      </button>
+      <Button variant="secondary" size="sm" onClick={handleSignInClick}>
+        Sign in
+      </Button>
 
       <AuthModal open={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
     </>

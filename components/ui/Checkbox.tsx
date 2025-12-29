@@ -1,5 +1,6 @@
-import { forwardRef, useEffect, useRef, useState } from "react";
+"use client";
 
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { CheckboxProps } from "@/types/ui";
 import { cn } from "@/lib/utils";
 

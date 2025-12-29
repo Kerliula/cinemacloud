@@ -36,7 +36,7 @@ const MovieDetails = ({
     <div className="gap-vertical-lg flex flex-1 flex-col justify-between">
       <div className="gap-vertical-md flex flex-col">
         <Title>{movie.title}</Title>
-        <MovieTags year={movie.year} genres={movie.genres} />
+        <MovieTags tags={[movie.year, ...movie.genres]} />
         <div className="gap-horizontal-sm gap-vertical-md md:gap-horizontal-md flex flex-col md:flex-row md:items-center">
           {infoItems.map(({ icon: Icon, text }, i) => (
             <React.Fragment key={i}>

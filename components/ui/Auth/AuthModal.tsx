@@ -24,7 +24,7 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
       <div className="glass-medium gap-vertical-lg modal-width flex flex-col rounded-2xl p-8">
         {/* Header */}
         <div className="flex items-start justify-between">
-          <h2 className="text-primary text-3xl font-bold">{title}</h2>
+          <h2 className="text-primary text-2xl font-bold uppercase">{title}</h2>
 
           <button
             aria-label="Close auth dialog"

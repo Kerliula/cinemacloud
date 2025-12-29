@@ -1,5 +1,3 @@
-import { release } from "os";
-
 export const INPUT_ICON_SIZE = 18;
 
 export const moviesList = [
