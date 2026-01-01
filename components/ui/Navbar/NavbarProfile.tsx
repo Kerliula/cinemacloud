@@ -1,86 +1,49 @@
 import { ChevronDown, UserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import UserMenu from "./UserMenu";
 import AuthModal from "@/components/ui/Auth/AuthModal";
 import Button from "@/components/ui/Button";
-
-interface NavbarProfileProps {
-  userName?: string;
-  className?: string;
-}
+import { useRouter } from "next/navigation";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 export default function NavbarProfile({
   userName,
-  className,
-}: NavbarProfileProps) {
+}: {
+  userName: string | null;
+}) {
+  const isSignedIn = Boolean(userName);
+
+  return isSignedIn ? (
+    <NavbarProfileSignedIn userName={userName} />
+  ) : (
+    <NavbarProfileSignedOut />
+  );
+}
+
+const NavbarProfileSignedIn = ({ userName }: { userName: string | null }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const router = useRouter();
   const menuRef = useRef<HTMLDivElement>(null);
-
-  // Close menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsProfileOpen(false);
-      }
-    };
-
-    if (isProfileOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isProfileOpen]);
-
-  const handleProfileClick = () => {
-    setIsProfileOpen((prev) => !prev);
-  };
-
-  const handleSettingsClick = () => {
-    console.log("Settings clicked");
-    setIsProfileOpen(false);
-    // Navigate to settings page
-  };
+  useOutsideClick(menuRef, () => setIsProfileOpen(false), isProfileOpen);
 
   const handleSignOutClick = () => {
-    console.log("Sign out clicked");
     setIsProfileOpen(false);
-    // Handle sign out logic
   };
 
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
-
-  const handleSignInClick = () => {
-    setIsAuthOpen(true);
-  };
-
-  const isSignedIn = !!userName;
-
-  if (isSignedIn) {
-    return (
-      <div className="relative" ref={menuRef}>
-        <button
-          className={cn(
-            "flex items-center gap-2",
-            "glass-medium rounded-full",
-            "px-3 py-1.5 md:px-4 md:py-2 lg:px-6 lg:py-2.5",
-            "hover-scale",
-            className
-          )}
-          onClick={handleProfileClick}
-          type="button"
-          aria-expanded={isProfileOpen}
-          aria-haspopup="menu"
-          aria-label={
-            isProfileOpen ? "Close profile menu" : "Open profile menu"
-          }
-        >
-          <span className="hidden text-sm font-semibold sm:block">
-            {userName}
-          </span>
-          <UserRound className="h-4 w-4 text-shadow-md sm:hidden" />
+  return (
+    <div className="relative" ref={menuRef}>
+      <Button
+        variant="secondary"
+        size="sm"
+        onClick={() => setIsProfileOpen((prev) => !prev)}
+        aria-expanded={isProfileOpen}
+        aria-label={isProfileOpen ? "Close profile menu" : "Open profile menu"}
+        aria-haspopup="menu"
+        aria-controls="user-menu"
+      >
+        <div className="gap-horizontal-xs flex items-center">
+          <span className="uppercase">{userName}</span>
           <ChevronDown
             className={cn(
               "h-4 w-4 transition-transform duration-300",
@@ -88,25 +51,34 @@ export default function NavbarProfile({
             )}
             aria-hidden="true"
           />
-        </button>
+        </div>
+      </Button>
+      <UserMenu
+        id="user-menu"
+        isOpen={isProfileOpen}
+        onClose={() => setIsProfileOpen(false)}
+        onSettingsClick={() => router.push("/user/settings")}
+        onMoviesListClick={() => router.push("/user/favorites")}
+        onSignOutClick={handleSignOutClick}
+      />
+    </div>
+  );
+};
 
-        <UserMenu
-          isOpen={isProfileOpen}
-          onClose={() => setIsProfileOpen(false)}
-          onSettingsClick={handleSettingsClick}
-          onSignOutClick={handleSignOutClick}
-        />
-      </div>
-    );
-  }
+const NavbarProfileSignedOut = () => {
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
 
   return (
     <>
-      <Button variant="secondary" size="sm" onClick={handleSignInClick}>
+      <Button
+        variant="secondary"
+        size="sm"
+        onClick={() => setIsAuthOpen(true)}
+        aria-label="Sign in to your account"
+      >
         Sign in
       </Button>
-
       <AuthModal open={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
     </>
   );
-}
+};

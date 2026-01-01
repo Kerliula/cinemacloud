@@ -1,22 +1,27 @@
-import { Settings, LogOut } from "lucide-react";
+import { Settings, LogOut, Menu, BookHeart } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { UserMenuProps } from "@/types/ui";
+import MenuButton from "./MenuButton";
 
-interface UserMenuProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSettingsClick: () => void;
-  onSignOutClick: () => void;
-  className?: string;
-}
+const Divider = () => (
+  <div
+    className="mx-6 my-2 h-px bg-white/20 sm:mx-2 sm:my-1"
+    aria-hidden="true"
+  />
+);
 
 export default function UserMenu({
   isOpen,
   onClose,
+  onMoviesListClick,
   onSettingsClick,
   onSignOutClick,
   className,
+  id,
 }: UserMenuProps) {
   if (!isOpen) return null;
+
+  const iconClasses = "h-5 w-5 sm:h-4 sm:w-4";
 
   return (
     <div
@@ -32,41 +37,26 @@ export default function UserMenu({
       )}
       role="menu"
       aria-orientation="vertical"
+      id={id}
     >
-      <button
-        className={cn(
-          "flex w-full items-center gap-3 px-6 py-4 text-left sm:px-4 sm:py-3",
-          "text-base text-white transition-colors sm:text-sm",
-          "hover:bg-white/10 hover:text-purple-300",
-          "focus:bg-white/10 focus:text-purple-300 focus:outline-none",
-          "active:bg-white/20"
-        )}
-        onClick={onSettingsClick}
-        role="menuitem"
-      >
-        <Settings className="h-5 w-5 sm:h-4 sm:w-4" aria-hidden="true" />
-        <span className="hidden sm:block">Settings</span>
-      </button>
-
-      <div
-        className="mx-6 my-2 h-px bg-white/20 sm:mx-2 sm:my-1"
-        aria-hidden="true"
+      <MenuButton
+        icon={<BookHeart className={iconClasses} aria-hidden="true" />}
+        onClick={onMoviesListClick}
+        text="Movies List"
       />
-
-      <button
-        className={cn(
-          "flex w-full items-center gap-3 px-6 py-4 text-left sm:px-4 sm:py-3",
-          "text-base text-white transition-colors sm:text-sm",
-          "hover:bg-red-500/20 hover:text-red-300",
-          "focus:bg-red-500/20 focus:text-red-300 focus:outline-none",
-          "active:bg-red-500/30"
-        )}
+      <Divider />
+      <MenuButton
+        icon={<Settings className={iconClasses} aria-hidden="true" />}
+        onClick={onSettingsClick}
+        text="Settings"
+      />
+      <Divider />
+      <MenuButton
+        icon={<LogOut className={iconClasses} aria-hidden="true" />}
         onClick={onSignOutClick}
-        role="menuitem"
-      >
-        <LogOut className="h-5 w-5 sm:h-4 sm:w-4" aria-hidden="true" />
-        <span className="hidden sm:block">Sign Out</span>
-      </button>
+        text="Sign Out"
+        variant="danger"
+      />
     </div>
   );
 }

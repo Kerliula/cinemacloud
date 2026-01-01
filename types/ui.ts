@@ -145,4 +145,17 @@ export interface FilterMenuProps {
 export interface ListPageProps {
   title: string;
   itemsList: Movie[];
+  showFilter?: boolean;
+  showSorter?: boolean;
+  showPagination?: boolean;
+}
+
+export interface UserMenuProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSettingsClick: () => void;
+  onSignOutClick: () => void;
+  onMoviesListClick: () => void;
+  className?: string;
+  id?: string;
 }

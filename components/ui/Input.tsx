@@ -45,7 +45,10 @@ const Input = forwardRef<HTMLInputElement, InputPropsExtended>(
     return (
       <div className="gap-vertical-sm flex flex-col text-sm">
         {showLabel && (
-          <label htmlFor={inputId} className="text-primary/80">
+          <label
+            htmlFor={inputId}
+            className="text-primary font-medium uppercase"
+          >
             {label}
           </label>
         )}
