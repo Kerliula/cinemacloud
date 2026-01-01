@@ -248,16 +248,7 @@ body {
 }
 
 .section-intro-text {
-  @apply font-semibold text-white uppercase text-shadow-md;
-
-  /* Mobile-first approach with smoother scaling */
-  @apply text-sm;
-
-  /* Small tablets */
-  @apply sm:text-base;
-
-  /* Tablets */
-  @apply md:text-lg;
+  @apply text-lg font-semibold text-white uppercase text-shadow-md;
 
   /* Small laptops */
   @apply lg:text-xl;
@@ -296,7 +287,7 @@ body {
 }
 
 .hover-scale {
-  @apply transition-transform duration-300 hover:scale-105;
+  @apply transition-transform duration-300 hover:scale-102;
 }
 
 .transition-base {

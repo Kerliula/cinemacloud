@@ -17,7 +17,7 @@ const Button = ({
   );
 
   const sizeStyles = {
-    sm: cn("text-xs px-4 py-2.5 xs:py-2 sm:px-5 sm:py-2.5"),
+    sm: cn("text-xs px-4 py-3 sm:px-5"),
     md: cn(
       "text-sm px-5 py-2 xs:py-2 sm:px-8 sm:py-2 sm:text-sm",
       "md:px-10 md:py-4 lg:px-12 lg:py-4 lg:text-md xl:px-16 xl:py-4"
