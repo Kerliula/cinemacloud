@@ -145,6 +145,9 @@ export interface FilterMenuProps {
 export interface ListPageProps {
   title: string;
   itemsList: Movie[];
+  showFilter?: boolean;
+  showSorter?: boolean;
+  showPagination?: boolean;
 }
 
 export interface UserMenuProps {

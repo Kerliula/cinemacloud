@@ -7,7 +7,13 @@ import MoviesList from "@/components/movies/MoviesList";
 import MoviesSorter from "@/components/movies/MoviesSorter";
 import MoviesFilter from "@/components/movies/MoviesFilter";
 
-const ListPage = ({ title, itemsList }: ListPageProps) => {
+const ListPage = ({
+  title,
+  itemsList,
+  showFilter = true,
+  showSorter = true,
+  showPagination = true,
+}: ListPageProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 20;
 
@@ -24,19 +30,21 @@ const ListPage = ({ title, itemsList }: ListPageProps) => {
     <>
       <h1 className="section-intro-text">{title}</h1>
       <div className="gap-horizontal-lg flex items-center">
-        <MoviesSorter />
-        <MoviesFilter />
+        {showSorter && <MoviesSorter />}
+        {showFilter && <MoviesFilter />}
       </div>
       <MoviesList
         moviesList={currentItems}
         layout="vertical-grid"
         showTitle={false}
       />
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      {showPagination && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
     </>
   );
 };
