@@ -50,7 +50,7 @@ const Button = ({
       {...props}
     >
       {icon && <span>{icon}</span>}
-      {children && <span className="uppercase">{children}</span>}
+      {children}
     </button>
   );
 };

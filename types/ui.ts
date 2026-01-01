@@ -146,3 +146,13 @@ export interface ListPageProps {
   title: string;
   itemsList: Movie[];
 }
+
+export interface UserMenuProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSettingsClick: () => void;
+  onSignOutClick: () => void;
+  onMoviesListClick: () => void;
+  className?: string;
+  id?: string;
+}
