@@ -1,4 +1,4 @@
-import { Settings, LogOut, Menu, BookHeart } from "lucide-react";
+import { Settings, LogOut, Shield, BookHeart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { UserMenuProps } from "@/types/ui";
 import MenuButton from "./MenuButton";
@@ -21,6 +21,8 @@ export default function UserMenu({
 }: UserMenuProps) {
   if (!isOpen) return null;
 
+  const IS_ADMIN = true; // TODO: Replace with real admin check
+
   const iconClasses = "h-5 w-5 sm:h-4 sm:w-4";
 
   return (
@@ -39,6 +41,20 @@ export default function UserMenu({
       aria-orientation="vertical"
       id={id}
     >
+      {IS_ADMIN && (
+        <>
+          <MenuButton
+            icon={<Shield className={iconClasses} aria-hidden="true" />}
+            onClick={() => {
+              console.log("Navigate to admin panel");
+              onClose();
+            }}
+            text="Admin Panel"
+          />
+          <Divider />
+        </>
+      )}
+
       <MenuButton
         icon={<BookHeart className={iconClasses} aria-hidden="true" />}
         onClick={onMoviesListClick}
