@@ -159,3 +159,9 @@ export interface UserMenuProps {
   className?: string;
   id?: string;
 }
+
+export interface AdminStatBlock {
+  title: string;
+  value: string;
+  Icon: React.ElementType;
+}

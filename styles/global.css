@@ -254,6 +254,13 @@ body {
   @apply lg:text-xl;
 }
 
+.section-admin-intro-text {
+  @apply text-xl font-semibold text-white uppercase text-shadow-lg;
+
+  /* Small laptops */
+  @apply lg:text-2xl;
+}
+
 .text-primary {
   @apply text-white;
 }
@@ -325,6 +332,10 @@ body {
 
 .layout-base {
   @apply flex min-h-dvh flex-col gap-y-3 px-4 py-2 md:gap-y-4 md:px-8 md:py-3 lg:gap-y-5 lg:px-12 lg:py-4 xl:gap-y-7 xl:px-25 xl:py-5;
+}
+
+.layout-admin-base {
+  @apply flex min-h-dvh flex-col gap-y-3 px-4 py-2 md:gap-y-4 md:px-5 md:py-3 lg:gap-y-5 lg:px-8 lg:py-4 xl:gap-y-7 xl:px-10 xl:py-5;
 }
 
 .padding-xs {
