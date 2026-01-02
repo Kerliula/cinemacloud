@@ -1,4 +1,4 @@
-export interface Movie {
+export interface Movie extends Record<string, unknown> {
   id: number;
   title: string;
   poster_path: string | null;

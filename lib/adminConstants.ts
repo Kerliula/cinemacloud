@@ -8,6 +8,7 @@ import {
   UserStar,
   Star,
 } from "lucide-react";
+import { User } from "@/types/ui";
 
 export const NAV_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -85,4 +86,37 @@ export const MOVIE_GENRES = [
   { value: "thriller", label: "Thriller" },
   { value: "war", label: "War" },
   { value: "western", label: "Western" },
+];
+
+export const DUMMY_USERS: User[] = [
+  {
+    id: 1,
+    Email: "admin@example.com",
+    Role: "Admin",
+    "Created At": "2024-01-01",
+  },
+  {
+    id: 2,
+    Email: "user1@example.com",
+    Role: "User",
+    "Created At": "2024-02-15",
+  },
+  {
+    id: 3,
+    Email: "user2@example.com",
+    Role: "User",
+    "Created At": "2024-03-22",
+  },
+  {
+    id: 4,
+    Email: "moderator@example.com",
+    Role: "Moderator",
+    "Created At": "2024-04-10",
+  },
+  {
+    id: 5,
+    Email: "user3@example.com",
+    Role: "User",
+    "Created At": "2024-05-05",
+  },
 ];

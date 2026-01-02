@@ -229,3 +229,26 @@ export interface UseMultiImageUploadProps {
   onChange?: (files: File[]) => void;
   maxFiles?: number;
 }
+
+export interface User extends Record<string, unknown> {
+  id: number;
+  Email: string;
+  Role: string;
+  "Created At": string;
+}
+
+export interface UsersColumnDef<
+  T extends Record<string, unknown> = Record<string, unknown>,
+> {
+  key: string;
+  header: string;
+  render?: (row: T, index: number) => React.ReactNode;
+  className?: string;
+}
+
+export interface TableProps<
+  T extends Record<string, unknown> = Record<string, unknown>,
+> {
+  columns: string[] | UsersColumnDef<T>[];
+  data: T[];
+}

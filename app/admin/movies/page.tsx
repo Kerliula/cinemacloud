@@ -2,20 +2,21 @@
 
 import CountBadge from "@/components/ui/CountBadge";
 import Button from "@/components/admin/Button";
-import { FilePlusCorner } from "lucide-react";
+import { Edit2, FilePlusCorner, Trash2 } from "lucide-react";
 import { Input } from "@/components/form";
-import MovieTable from "@/components/admin/MovieTable";
+import Table from "@/components/ui/Table";
 import Pagination from "@/components/admin/Pagination";
 import { moviesList } from "@/lib/constants";
 import { Movie } from "@/types/movie";
+import { UsersColumnDef } from "@/types/ui";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 5;
 
 const AdminMoviesListPage = () => {
-  const router = useRouter();
-
   const [movies] = useState<Movie[]>(moviesList);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,12 +32,6 @@ const AdminMoviesListPage = () => {
 
   const handleAddMovie = () => {};
 
-  const handleEditMovie = (movie: Movie) => {
-    router.push(`/admin/movies/${movie.id}`);
-  };
-
-  const handleDeleteMovie = (movie: Movie) => {};
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -46,8 +41,47 @@ const AdminMoviesListPage = () => {
     setCurrentPage(1);
   };
 
+  const columns: UsersColumnDef<Movie>[] = [
+    {
+      key: "poster_path",
+      header: "Poster",
+      render: (movie) => <MovieCover movie={movie} />,
+      className: "padding-lg",
+    },
+    {
+      key: "title",
+      header: "Title",
+      className: "padding-lg text-sm font-medium text-white",
+    },
+    {
+      key: "release_date",
+      header: "Release Date",
+      render: (movie) => movie.release_date || "N/A",
+      className: "padding-lg text-sm text-white/70",
+    },
+    {
+      key: "vote_average",
+      header: "Rating",
+      render: (movie) => (
+        <div className="flex items-center gap-1">
+          <span className="text-sm font-semibold text-yellow-500">
+            {movie.vote_average.toFixed(1)}
+          </span>
+          <span className="text-xs text-white/40">/10</span>
+        </div>
+      ),
+      className: "padding-lg",
+    },
+    {
+      key: "actions",
+      header: "Actions",
+      render: (movie) => <MovieTableActions movie={movie} />,
+      className: "padding-lg",
+    },
+  ];
+
   return (
-    <div className="flex flex-col gap-6">
+    <>
       <div className="flex flex-row items-center justify-between">
         <div className="gap-horizontal-md flex flex-row items-center">
           <h1 className="section-admin-intro-text">Movies</h1>
@@ -69,11 +103,7 @@ const AdminMoviesListPage = () => {
         value={searchQuery}
         onChange={handleSearchChange}
       />
-      <MovieTable
-        movies={paginatedMovies}
-        onEdit={handleEditMovie}
-        onDelete={handleDeleteMovie}
-      />
+      <Table columns={columns} data={paginatedMovies} />
       {totalPages > 1 && (
         <Pagination
           currentPage={currentPage}
@@ -81,6 +111,66 @@ const AdminMoviesListPage = () => {
           onPageChange={handlePageChange}
         />
       )}
+    </>
+  );
+};
+
+const MovieCover = ({ movie }: { movie: Movie }) => {
+  return (
+    <>
+      {movie.poster_path ? (
+        <div className="relative h-16 w-11 overflow-hidden rounded">
+          <Image
+            src={movie.poster_path}
+            alt={movie.title}
+            fill
+            className="object-cover"
+          />
+        </div>
+      ) : (
+        <div
+          className={cn(
+            "flex h-16 w-11 items-center justify-center rounded",
+            "bg-white/10 text-xs text-white/40"
+          )}
+        >
+          No Image
+        </div>
+      )}
+    </>
+  );
+};
+
+const MovieTableActions = ({ movie }: { movie: Movie }) => {
+  const router = useRouter();
+
+  const handleEditMovie = (movie: Movie) => {
+    router.push(`/admin/movies/${movie.id}`);
+  };
+
+  const handleDeleteMovie = (movie: Movie) => {};
+  return (
+    <div className="flex gap-2">
+      <button
+        onClick={() => handleEditMovie(movie)}
+        className={cn(
+          "padding-md rounded text-white/60 transition-colors",
+          "hover:bg-green-600/20 hover:text-green-400"
+        )}
+        title="Edit"
+      >
+        <Edit2 size={16} />
+      </button>
+      <button
+        onClick={() => handleDeleteMovie(movie)}
+        className={cn(
+          "padding-md rounded text-white/60 transition-colors",
+          "hover:bg-red-600/20 hover:text-red-400"
+        )}
+        title="Delete"
+      >
+        <Trash2 size={16} />
+      </button>
     </div>
   );
 };
