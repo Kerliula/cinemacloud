@@ -21,6 +21,8 @@ export interface Slide {
   description: string;
   year: string;
   genres: string[];
+  background?: string;
+  movieId?: number;
 }
 
 export interface HeroProps {
