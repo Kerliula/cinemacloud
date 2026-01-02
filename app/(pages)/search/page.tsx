@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import MoviesList from "@/components/movies/MoviesList";
 import CountBadge from "@/components/ui/CountBadge";
-import Input from "@/components/ui/Input";
+import Input from "@/components/form/Input";
 import { Pagination } from "@/components/ui";
 import { moviesList } from "@/lib/constants";
 

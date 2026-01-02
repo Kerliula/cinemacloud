@@ -9,7 +9,7 @@ const LeftNavbar = () => {
   const pathname = usePathname();
 
   return (
-    <aside className="h-screen border-r border-white/10 bg-black/40 backdrop-blur-sm">
+    <aside className="sticky top-0 h-screen border-r border-white/10 bg-black/40 backdrop-blur-sm">
       <div className="gap-vertical-md padding-lg flex h-full flex-col items-center">
         <Cloud className="text-primary h-8 w-8" />
         <div className="w-full border-t border-white/10" />

@@ -3,7 +3,7 @@ import StatBlock from "@/components/admin/StatBlock";
 
 const AdminDashboardPage = () => {
   return (
-    <div className="gap-vertical-md gap-horizontal-lg flex flex-col">
+    <>
       <h1 className="section-admin-intro-text">Dashboard</h1>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
         {STAT_BLOCKS.map((stat) => {
@@ -18,7 +18,7 @@ const AdminDashboardPage = () => {
           );
         })}
       </div>
-    </div>
+    </>
   );
 };
 

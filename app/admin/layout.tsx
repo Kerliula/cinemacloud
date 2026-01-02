@@ -7,7 +7,9 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       <LeftNavbar />
       <div className="layout-admin-base flex-1 justify-start">
         <RedBackground />
-        {children}
+        <div className="gap-vertical-md gap-horizontal-lg flex flex-col">
+          {children}
+        </div>
       </div>
     </div>
   );
