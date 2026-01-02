@@ -1,6 +1,8 @@
 import Button from "./Button";
-import Input from "./Input";
-import Checkbox from "./Checkbox";
+import CountBadge from "./CountBadge";
+import ListPage from "./ListPage";
+import Logo from "./Logo";
 import Pagination from "./Pagination";
+import Title from "./Title";
 
-export { Button, Input, Checkbox, Pagination };
+export { Button, CountBadge, ListPage, Logo, Pagination, Title };

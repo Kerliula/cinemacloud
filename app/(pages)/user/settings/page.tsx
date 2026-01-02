@@ -1,6 +1,7 @@
 "use client";
 
-import { Input, Button } from "@/components/ui/";
+import { Button } from "@/components/ui/";
+import { Input } from "@/components/form";
 import { useState } from "react";
 
 const SettingsPage = () => {

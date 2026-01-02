@@ -21,6 +21,8 @@ export interface Slide {
   description: string;
   year: string;
   genres: string[];
+  background?: string;
+  movieId?: number;
 }
 
 export interface HeroProps {
@@ -158,4 +160,97 @@ export interface UserMenuProps {
   onMoviesListClick: () => void;
   className?: string;
   id?: string;
+}
+
+export interface AdminStatBlock {
+  title: string;
+  value: string;
+  Icon: React.ElementType;
+}
+
+export interface AdminButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "secondary" | "danger" | "success";
+  size?: "sm" | "md" | "lg";
+  children: React.ReactNode;
+  Icon?: React.ElementType;
+  loading?: boolean;
+  fullWidth?: boolean;
+}
+
+export interface MovieTableProps {
+  movies: Movie[];
+  onEdit: (movie: Movie) => void;
+  onDelete: (movie: Movie) => void;
+}
+
+export interface AdminPaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+}
+
+export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  colorMode?: "light" | "dark" | "medium";
+  label?: string;
+  hideLabel?: boolean;
+}
+
+export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+  colorMode?: "light" | "dark" | "medium";
+  label?: string;
+  hideLabel?: boolean;
+  options: Array<{ value: string | number; label: string }>;
+}
+
+export interface MultiSelectOption {
+  value: string;
+  label: string;
+}
+
+export interface MultiSelectProps {
+  label?: string;
+  options: MultiSelectOption[];
+  value?: string[];
+  onChange?: (value: string[]) => void;
+  placeholder?: string;
+  className?: string;
+  colorMode?: "light" | "dark" | "medium";
+}
+
+export interface MultiImageUploadProps {
+  label?: string;
+  value?: File[];
+  onChange?: (files: File[]) => void;
+  maxFiles?: number;
+  className?: string;
+  accept?: string;
+}
+
+export interface UseMultiImageUploadProps {
+  value: File[];
+  onChange?: (files: File[]) => void;
+  maxFiles?: number;
+}
+
+export interface User extends Record<string, unknown> {
+  id: number;
+  Email: string;
+  Role: string;
+  "Created At": string;
+}
+
+export interface UsersColumnDef<
+  T extends Record<string, unknown> = Record<string, unknown>,
+> {
+  key: string;
+  header: string;
+  render?: (row: T, index: number) => React.ReactNode;
+  className?: string;
+}
+
+export interface TableProps<
+  T extends Record<string, unknown> = Record<string, unknown>,
+> {
+  columns: string[] | UsersColumnDef<T>[];
+  data: T[];
 }

@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import { Mail, Lock } from "lucide-react";
-import { Button, Input, Checkbox } from "@/components/ui";
+import { Button } from "@/components/ui";
+import { Input, Checkbox } from "@/components/form";
 import AuthFooter from "@/components/ui/Auth/AuthFooter";
 import { LoginFormProps } from "@/types/ui";
 import { INPUT_ICON_SIZE } from "@/lib/constants";
