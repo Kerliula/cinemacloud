@@ -12,9 +12,12 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\""
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "clsx": "^2.1.1",
+    "dotenv": "^17.2.3",
     "hls.js": "^1.6.15",
     "lucide-react": "^0.561.0",
+    "mysql2": "^3.16.0",
     "next": "16.0.10",
     "plyr": "^3.8.3",
     "react": "19.2.1",
