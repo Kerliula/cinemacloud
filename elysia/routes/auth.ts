@@ -90,6 +90,14 @@ export const authRoute = new Elysia({ prefix: "/auth" })
       body: registerSchema,
     }
   )
+  .post("/signout", async ({ set }) => {
+    // Clear the cookie by setting Max-Age=0
+    set.headers["Set-Cookie"] =
+      "token=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0";
+
+    set.status = 200;
+    return;
+  })
   .get("/me", async ({ headers, set }) => {
     const cookie = headers.cookie;
 

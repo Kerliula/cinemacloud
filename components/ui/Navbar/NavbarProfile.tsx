@@ -7,6 +7,7 @@ import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { apiClient } from "@/elysia/lib/apiClient";
 
 export default function NavbarProfile() {
   const { data: currentUser } = useCurrentUser();
@@ -28,7 +29,15 @@ const NavbarProfileSignedIn = ({ userName }: { userName: string | null }) => {
   useOutsideClick(menuRef, () => setIsProfileOpen(false), isProfileOpen);
 
   const handleSignOutClick = () => {
-    setIsProfileOpen(false);
+    apiClient.auth.signout
+      .post()
+      .then(() => {
+        window.location.href = "/";
+      })
+      .catch((err: unknown) => {
+        const message = err instanceof Error ? err.message : "Sign out failed";
+        alert(message);
+      });
   };
 
   return (
