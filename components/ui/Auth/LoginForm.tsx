@@ -8,13 +8,14 @@ import AuthFooter from "@/components/ui/Auth/AuthFooter";
 import { LoginFormProps } from "@/types/ui";
 import { INPUT_ICON_SIZE } from "@/lib/constants";
 import { apiClient } from "@/elysia/lib/apiClient";
+import ErrorMessage from "./ErrorMessage";
 
 const LoginExtras = ({
   remember,
   setRemember,
 }: {
   remember: boolean;
-  setRemember: React.Dispatch<React.SetStateAction<boolean>>;
+  setRemember: (remember: boolean) => void;
 }) => {
   return (
     <div className="flex items-center justify-between text-sm text-white/80">
@@ -36,28 +37,40 @@ const LoginExtras = ({
 };
 
 const LoginForm = ({ onSwitch, onClose }: LoginFormProps) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
+  const [formData, setFormData] = useState<{
+    email: string;
+    password: string;
+    remember: boolean;
+  }>({
+    email: "",
+    password: "",
+    remember: false,
+  });
+
+  const [errorStatus, setErrorStatus] = useState<number | null>(null);
+  const [validationError, setValidationError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       const res = await apiClient.auth.login.post({
-        email,
-        password,
+        email: formData.email,
+        password: formData.password,
       });
 
-      // Check if the response indicates success
       if (res.error) {
-        console.log("Login error response:", res);
-        alert(res.error || "Login failed");
+        setErrorStatus(res.error.status);
+
+        if (res.error.status === 422) {
+          setValidationError(res.error.value.message || "Validation error");
+          setErrorStatus(422);
+        }
         return;
       }
 
-      alert("Logged in successfully!");
-      console.log("Login response:", res);
+      window.location.reload();
+
       onClose?.();
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Login failed";
@@ -67,12 +80,19 @@ const LoginForm = ({ onSwitch, onClose }: LoginFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="gap-vertical-md flex flex-col">
+      {errorStatus === 422 && <ErrorMessage message={validationError || ""} />}
+      {errorStatus === 401 && (
+        <ErrorMessage message="Invalid email or password." />
+      )}
+      {errorStatus === 500 && (
+        <ErrorMessage message="Server error. Please try again later." />
+      )}
       <Input
         id="login-email"
         label="Email"
         type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={formData.email}
+        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
         placeholder="you@example.com"
         required
         icon={<Mail size={INPUT_ICON_SIZE} />}
@@ -82,14 +102,17 @@ const LoginForm = ({ onSwitch, onClose }: LoginFormProps) => {
         id="login-password"
         label="Password"
         type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={formData.password}
+        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
         placeholder="Your password"
         required
         icon={<Lock size={INPUT_ICON_SIZE} />}
       />
 
-      <LoginExtras remember={remember} setRemember={setRemember} />
+      <LoginExtras
+        remember={formData.remember}
+        setRemember={(remember) => setFormData({ ...formData, remember })}
+      />
 
       <Button size="sm" type="submit" variant="primary">
         Sign in

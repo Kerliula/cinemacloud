@@ -8,53 +8,93 @@ import AuthFooter from "@/components/ui/Auth/AuthFooter";
 import { RegisterFormProps } from "@/types/ui";
 import { INPUT_ICON_SIZE } from "@/lib/constants";
 import { apiClient } from "@/elysia/lib/apiClient";
+import ErrorMessage from "./ErrorMessage";
+import { form } from "elysia";
 
 export default function RegisterForm({ onSwitch, onClose }: RegisterFormProps) {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
-  const [accepted, setAccepted] = useState(false);
+  const [formData, setFormData] = useState<{
+    username: string;
+    email: string;
+    password: string;
+    confirm: string;
+  }>({
+    username: "",
+    email: "",
+    password: "",
+    confirm: "",
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [formState, setFormState] = useState<{
+    accepted: boolean;
+    validationError: string | null;
+    errorStatus: number | null;
+  }>({
+    accepted: false,
+    validationError: null,
+    errorStatus: null,
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password !== confirm) {
-      alert("Passwords do not match");
-      return;
-    }
 
-    if (!accepted) {
+    if (!formState.accepted) {
       alert("Please accept the Terms and Privacy Policy");
       return;
     }
 
-    apiClient.auth.register
-      .post({
-        username,
-        email,
-        password,
-        repeatPassword: confirm,
-      })
-      .then((res) => {
-        alert("Registered successfully!");
-        console.log("Registration response:", res);
-        onClose?.();
-      })
-      .catch((err: unknown) => {
-        const message =
-          err instanceof Error ? err.message : "Registration failed";
-        alert(message);
+    try {
+      const res = await apiClient.auth.register.post({
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+        repeatPassword: formData.confirm,
       });
+
+      if (res.error) {
+        if (res.error.status === 422) {
+          setFormState({
+            ...formState,
+            validationError: res.error.value.message || "Validation error",
+            errorStatus: 422,
+          });
+        } else {
+          setFormState({
+            ...formState,
+            errorStatus: res.error.status,
+          });
+        }
+
+        return;
+      }
+
+      window.location.reload();
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Registration failed";
+      alert(message);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="gap-vertical-md flex flex-col">
+      {formState.errorStatus === 422 && (
+        <ErrorMessage message={formState.validationError || ""} />
+      )}
+      {formState.errorStatus === 401 && (
+        <ErrorMessage message="Invalid credentials. Please try again." />
+      )}
+      {formState.errorStatus === 500 && (
+        <ErrorMessage message="Server error. Please try again later." />
+      )}
+      {formState.errorStatus === 409 && (
+        <ErrorMessage message="Email or username already in use." />
+      )}
       <Input
         id="register-name"
-        label="Full name"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Your name"
+        label="Username"
+        value={formData.username}
+        onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+        placeholder="Your username"
         required
         icon={<User size={INPUT_ICON_SIZE} />}
       />
@@ -63,8 +103,8 @@ export default function RegisterForm({ onSwitch, onClose }: RegisterFormProps) {
         id="register-email"
         label="Email"
         type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={formData.email}
+        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
         placeholder="you@example.com"
         required
         icon={<Mail size={INPUT_ICON_SIZE} />}
@@ -74,8 +114,8 @@ export default function RegisterForm({ onSwitch, onClose }: RegisterFormProps) {
         id="register-password"
         label="Password"
         type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={formData.password}
+        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
         placeholder="Min 8 characters"
         required
         icon={<Lock size={INPUT_ICON_SIZE} />}
@@ -85,14 +125,17 @@ export default function RegisterForm({ onSwitch, onClose }: RegisterFormProps) {
         id="register-confirm"
         label="Confirm password"
         type="password"
-        value={confirm}
-        onChange={(e) => setConfirm(e.target.value)}
+        value={formData.confirm}
+        onChange={(e) => setFormData({ ...formData, confirm: e.target.value })}
         placeholder="Repeat password"
         required
         icon={<Lock size={INPUT_ICON_SIZE} />}
       />
 
-      <AcceptTerms checked={accepted} onChangeAction={setAccepted} />
+      <AcceptTerms
+        checked={formState.accepted}
+        onChangeAction={(accepted) => setFormState({ ...formState, accepted })}
+      />
 
       <Button size="sm" type="submit" variant="primary">
         Create account
