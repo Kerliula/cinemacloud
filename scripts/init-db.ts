@@ -1,4 +1,4 @@
-import { pool } from "../lib/db.ts";
+import { pool } from "../elysia/lib/db.js";
 
 await pool.query(`
   CREATE TABLE IF NOT EXISTS roles (
@@ -21,4 +21,13 @@ await pool.query(`
 `);
 
 console.log("Roles and Users tables created");
+
+await pool.query(`
+  INSERT INTO roles (name)
+  VALUES ('user'), ('admin')
+  ON DUPLICATE KEY UPDATE name = name;
+`);
+
+console.log("Default roles inserted");
+
 process.exit();

@@ -7,36 +7,10 @@ import { Input } from "@/components/form";
 import AuthFooter from "@/components/ui/Auth/AuthFooter";
 import { RegisterFormProps } from "@/types/ui";
 import { INPUT_ICON_SIZE } from "@/lib/constants";
-
-const AcceptTerms = ({
-  checked,
-  onChangeAction,
-  className = "",
-}: {
-  checked: boolean;
-  onChangeAction: (checked: boolean) => void;
-  className?: string;
-}) => {
-  return (
-    <div className={`flex items-start gap-3 text-sm ${className}`}>
-      <label className="inline-flex items-start gap-2 text-white/80">
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={(e) => onChangeAction(e.target.checked)}
-          className="mt-1 h-4 w-4 rounded border-white/20 bg-white/5 accent-purple-500"
-        />
-        <span className="select-none">
-          I accept the <span className="underline">Terms</span> and{" "}
-          <span className="underline">Privacy Policy</span>
-        </span>
-      </label>
-    </div>
-  );
-};
+import { apiClient } from "@/elysia/lib/apiClient";
 
 export default function RegisterForm({ onSwitch, onClose }: RegisterFormProps) {
-  const [displayName, setDisplayName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -54,9 +28,23 @@ export default function RegisterForm({ onSwitch, onClose }: RegisterFormProps) {
       return;
     }
 
-    console.log("register", { displayName, email, password });
-    alert("Registered (stub)");
-    onClose?.();
+    apiClient.auth.register
+      .post({
+        username,
+        email,
+        password,
+        repeatPassword: confirm,
+      })
+      .then((res) => {
+        alert("Registered successfully!");
+        console.log("Registration response:", res);
+        onClose?.();
+      })
+      .catch((err: unknown) => {
+        const message =
+          err instanceof Error ? err.message : "Registration failed";
+        alert(message);
+      });
   };
 
   return (
@@ -64,8 +52,8 @@ export default function RegisterForm({ onSwitch, onClose }: RegisterFormProps) {
       <Input
         id="register-name"
         label="Full name"
-        value={displayName}
-        onChange={(e) => setDisplayName(e.target.value)}
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
         placeholder="Your name"
         required
         icon={<User size={INPUT_ICON_SIZE} />}
@@ -118,3 +106,30 @@ export default function RegisterForm({ onSwitch, onClose }: RegisterFormProps) {
     </form>
   );
 }
+
+const AcceptTerms = ({
+  checked,
+  onChangeAction,
+  className = "",
+}: {
+  checked: boolean;
+  onChangeAction: (checked: boolean) => void;
+  className?: string;
+}) => {
+  return (
+    <div className={`gap-horizontal-md flex items-start text-sm ${className}`}>
+      <label className="inline-flex items-start gap-2 text-white/80">
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={(e) => onChangeAction(e.target.checked)}
+          className="h-4 w-4 rounded border-white/20 bg-white/5 accent-purple-500"
+        />
+        <span className="select-none">
+          I accept the <span className="underline">Terms</span> and{" "}
+          <span className="underline">Privacy Policy</span>
+        </span>
+      </label>
+    </div>
+  );
+};

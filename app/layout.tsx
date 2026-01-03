@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Poppins } from "next/font/google";
 import "@/styles/global.css";
-import Navbar from "@/components/ui/Navbar/Navbar";
 import { cn } from "@/lib/utils";
+import QueryProvider from "@/components/providers/QueryProvider";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -28,7 +28,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(geist.variable, poppins.variable)}>{children}</body>
+      <body className={cn(geist.variable, poppins.variable)}>
+        <QueryProvider>{children}</QueryProvider>
+      </body>
     </html>
   );
 }

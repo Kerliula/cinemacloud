@@ -12,12 +12,15 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\""
   },
   "dependencies": {
+    "@elysiajs/eden": "^1.4.6",
     "@tanstack/react-query": "^5.90.16",
     "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
     "dotenv": "^17.2.3",
     "elysia": "^1.4.19",
     "hls.js": "^1.6.15",
+    "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.561.0",
     "mysql2": "^3.16.0",
     "next": "16.0.10",
@@ -29,6 +32,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
