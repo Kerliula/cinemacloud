@@ -1,4 +1,4 @@
-import { ChevronDown, UserRound } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState, useRef } from "react";
 import UserMenu from "./UserMenu";
@@ -6,12 +6,13 @@ import AuthModal from "@/components/ui/Auth/AuthModal";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { apiClient } from "@/elysia/lib/apiClient";
 
-export default function NavbarProfile({
-  userName,
-}: {
-  userName: string | null;
-}) {
+export default function NavbarProfile() {
+  const { data: currentUser } = useCurrentUser();
+  const userName = currentUser?.username || null;
+
   const isSignedIn = Boolean(userName);
 
   return isSignedIn ? (
@@ -28,7 +29,15 @@ const NavbarProfileSignedIn = ({ userName }: { userName: string | null }) => {
   useOutsideClick(menuRef, () => setIsProfileOpen(false), isProfileOpen);
 
   const handleSignOutClick = () => {
-    setIsProfileOpen(false);
+    apiClient.auth.signout
+      .post()
+      .then(() => {
+        window.location.href = "/";
+      })
+      .catch((err: unknown) => {
+        const message = err instanceof Error ? err.message : "Sign out failed";
+        alert(message);
+      });
   };
 
   return (

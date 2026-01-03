@@ -7,8 +7,6 @@ import NavbarSearch from "./NavbarSearch";
 import NavbarProfile from "./NavbarProfile";
 
 export default function Navbar() {
-  const userName = "joe_doe";
-
   return (
     <header>
       <nav className="flex items-center justify-between text-white">
@@ -21,7 +19,7 @@ export default function Navbar() {
         {/* Right side */}
         <div className="nav-side-base-classes">
           <NavbarSearch className="hidden 2xl:flex" />
-          <NavbarProfile userName={userName} />
+          <NavbarProfile />
         </div>
       </nav>
     </header>

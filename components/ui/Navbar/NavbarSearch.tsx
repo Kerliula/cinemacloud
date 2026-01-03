@@ -36,7 +36,8 @@ export default function NavbarSearch({ className }: { className?: string }) {
         placeholder="Search..."
         aria-label="Search movies and series"
         className={cn(
-          "w-40 rounded-full border border-white/40 bg-white/5 py-2 pr-9 pl-9 backdrop-blur-md md:w-56 md:pr-11 md:pl-11 lg:w-64 xl:w-72",
+          "w-40 rounded-full border border-white/40 bg-white/5 py-2",
+          "pr-9 pl-9 backdrop-blur-md md:w-56 md:pr-11 md:pl-11 lg:w-64 xl:w-72",
           "text-xs font-medium text-white placeholder-gray-400 md:text-sm",
           "transition-base",
           "hover:border-white/60 hover:bg-white/10",
