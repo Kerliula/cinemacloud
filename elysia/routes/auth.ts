@@ -1,5 +1,5 @@
 import { Elysia } from "elysia";
-import { registerSchema } from "@/elysia/schemas/auth.schema";
+import { registerSchema, loginSchema } from "@/elysia/schemas/auth.schema";
 import { pool } from "@/elysia/lib/db";
 import bcrypt from "bcryptjs";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
@@ -7,6 +7,14 @@ import { generateToken, verifyToken } from "@/elysia/lib/jwt";
 
 interface Role extends RowDataPacket {
   id: number;
+}
+
+interface User extends RowDataPacket {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  role_id: number;
 }
 
 export const authRoute = new Elysia({ prefix: "/auth" })
@@ -119,4 +127,61 @@ export const authRoute = new Elysia({ prefix: "/auth" })
       set.status = 401;
       return;
     }
-  });
+  })
+  .post(
+    "/login",
+    async ({ body, set }) => {
+      const { email, password } = body;
+
+      try {
+        // Find user by email
+        const [users] = await pool.query<User[]>(
+          "SELECT id, username, email, password, role_id FROM users WHERE email = ?",
+          [email]
+        );
+
+        if (!users.length) {
+          set.status = 401;
+          return;
+        }
+
+        const user = users[0];
+
+        // Verify password
+        const isValidPassword = await bcrypt.compare(password, user.password);
+
+        if (!isValidPassword) {
+          set.status = 401;
+          return;
+        }
+
+        // Generate JWT token
+        const token = generateToken({
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          roleId: user.role_id,
+        });
+
+        // Set HTTP-only cookie
+        set.headers["Set-Cookie"] =
+          `token=${token}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=${7 * 24 * 60 * 60}`; // 7 days in seconds
+
+        set.status = 200;
+        return {
+          token,
+          user: {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+          },
+        };
+      } catch {
+        set.status = 500;
+        return;
+      }
+    },
+    {
+      body: loginSchema,
+    }
+  );

@@ -7,6 +7,7 @@ import { Input, Checkbox } from "@/components/form";
 import AuthFooter from "@/components/ui/Auth/AuthFooter";
 import { LoginFormProps } from "@/types/ui";
 import { INPUT_ICON_SIZE } from "@/lib/constants";
+import { apiClient } from "@/elysia/lib/apiClient";
 
 const LoginExtras = ({
   remember,
@@ -39,12 +40,29 @@ const LoginForm = ({ onSwitch, onClose }: LoginFormProps) => {
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log("login", { email, password });
-    alert("Signed in (stub)");
-    onClose?.();
+    try {
+      const res = await apiClient.auth.login.post({
+        email,
+        password,
+      });
+
+      // Check if the response indicates success
+      if (res.error) {
+        console.log("Login error response:", res);
+        alert(res.error || "Login failed");
+        return;
+      }
+
+      alert("Logged in successfully!");
+      console.log("Login response:", res);
+      onClose?.();
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Login failed";
+      alert(message);
+    }
   };
 
   return (
