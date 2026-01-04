@@ -158,8 +158,10 @@ export interface UserMenuProps {
   onSettingsClick: () => void;
   onSignOutClick: () => void;
   onMoviesListClick: () => void;
+  onAdminClick: () => void;
   className?: string;
   id?: string;
+  isAdmin?: boolean;
 }
 
 export interface AdminStatBlock {
@@ -199,7 +201,7 @@ export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElemen
   colorMode?: "light" | "dark" | "medium";
   label?: string;
   hideLabel?: boolean;
-  options: Array<{ value: string | number; label: string }>;
+  options: Array<{ value: string | number; label: string; disabled?: boolean }>;
 }
 
 export interface MultiSelectOption {
@@ -215,6 +217,7 @@ export interface MultiSelectProps {
   placeholder?: string;
   className?: string;
   colorMode?: "light" | "dark" | "medium";
+  disabled?: boolean;
 }
 
 export interface MultiImageUploadProps {

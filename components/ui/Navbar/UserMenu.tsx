@@ -16,13 +16,12 @@ export default function UserMenu({
   onMoviesListClick,
   onSettingsClick,
   onSignOutClick,
+  onAdminClick,
   className,
   id,
+  isAdmin,
 }: UserMenuProps) {
   if (!isOpen) return null;
-
-  const IS_ADMIN = true; // TODO: Replace with real admin check
-
   const iconClasses = "h-5 w-5 sm:h-4 sm:w-4";
 
   return (
@@ -41,14 +40,11 @@ export default function UserMenu({
       aria-orientation="vertical"
       id={id}
     >
-      {IS_ADMIN && (
+      {isAdmin && (
         <>
           <MenuButton
             icon={<Shield className={iconClasses} aria-hidden="true" />}
-            onClick={() => {
-              console.log("Navigate to admin panel");
-              onClose();
-            }}
+            onClick={onAdminClick}
             text="Admin Panel"
           />
           <Divider />

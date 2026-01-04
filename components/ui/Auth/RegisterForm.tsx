@@ -9,7 +9,6 @@ import { RegisterFormProps } from "@/types/ui";
 import { INPUT_ICON_SIZE } from "@/lib/constants";
 import { apiClient } from "@/elysia/lib/apiClient";
 import ErrorMessage from "./ErrorMessage";
-import { form } from "elysia";
 
 export default function RegisterForm({ onSwitch, onClose }: RegisterFormProps) {
   const [formData, setFormData] = useState<{

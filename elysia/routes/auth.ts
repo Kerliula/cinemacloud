@@ -7,6 +7,7 @@ import { generateToken, verifyToken } from "@/elysia/lib/jwt";
 
 interface Role extends RowDataPacket {
   id: number;
+  name: string;
 }
 
 interface User extends RowDataPacket {
@@ -15,6 +16,15 @@ interface User extends RowDataPacket {
   email: string;
   password: string;
   role_id: number;
+}
+
+interface UserWithRole extends RowDataPacket {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  role_id: number;
+  role_name: string;
 }
 
 export const authRoute = new Elysia({ prefix: "/auth" })
@@ -121,8 +131,33 @@ export const authRoute = new Elysia({ prefix: "/auth" })
     }
 
     try {
-      const user = verifyToken(tokenMatch[1]);
-      return { user };
+      const tokenData = verifyToken(tokenMatch[1]);
+
+      // Fetch user with role name
+      const [users] = await pool.query<UserWithRole[]>(
+        `SELECT u.id, u.username, u.email, u.role_id, r.name as role_name 
+         FROM users u 
+         JOIN roles r ON u.role_id = r.id 
+         WHERE u.id = ?`,
+        [tokenData.id]
+      );
+
+      if (!users.length) {
+        set.status = 401;
+        return;
+      }
+
+      const user = users[0];
+
+      return {
+        user: {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          roleId: user.role_id,
+          roleName: user.role_name,
+        },
+      };
     } catch {
       set.status = 401;
       return;
@@ -134,9 +169,12 @@ export const authRoute = new Elysia({ prefix: "/auth" })
       const { email, password } = body;
 
       try {
-        // Find user by email
-        const [users] = await pool.query<User[]>(
-          "SELECT id, username, email, password, role_id FROM users WHERE email = ?",
+        // Find user by email with role name
+        const [users] = await pool.query<UserWithRole[]>(
+          `SELECT u.id, u.username, u.email, u.password, u.role_id, r.name as role_name 
+           FROM users u 
+           JOIN roles r ON u.role_id = r.id 
+           WHERE u.email = ?`,
           [email]
         );
 
@@ -174,6 +212,8 @@ export const authRoute = new Elysia({ prefix: "/auth" })
             id: user.id,
             username: user.username,
             email: user.email,
+            roleId: user.role_id,
+            roleName: user.role_name,
           },
         };
       } catch {

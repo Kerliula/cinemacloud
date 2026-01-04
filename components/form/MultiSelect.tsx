@@ -14,12 +14,14 @@ const MultiSelect = ({
   onChange,
   placeholder = "Select options...",
   className = "",
+  disabled = false,
 }: MultiSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   useOutsideClick(containerRef, () => setIsOpen(false));
 
   const toggleOption = (optionValue: string) => {
+    if (disabled) return;
     const newValue = value.includes(optionValue)
       ? value.filter((v) => v !== optionValue)
       : [...value, optionValue];
@@ -49,12 +51,14 @@ const MultiSelect = ({
       <div className="relative">
         <button
           type="button"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => !disabled && setIsOpen(!isOpen)}
+          disabled={disabled}
           className={cn(
             colorModeClass,
             "w-full rounded-lg px-3 py-3",
             "text-secondary text-left text-sm",
-            "flex items-center justify-between"
+            "flex items-center justify-between",
+            disabled && "cursor-not-allowed opacity-50"
           )}
         >
           <span className={cn(value.length === 0 && "text-white/40")}>

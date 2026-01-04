@@ -12,7 +12,8 @@ export default function NavbarLinks({ items, className }: NavbarLinksProps) {
   return (
     <ul
       className={cn(
-        "gap-horizontal-2xl font-geist flex flex-row items-center text-xs font-medium md:text-sm md:font-bold",
+        "gap-horizontal-2xl font-geist flex flex-row items-center",
+        "text-xs font-medium md:text-sm md:font-bold",
         className
       )}
     >
