@@ -201,7 +201,7 @@ export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElemen
   colorMode?: "light" | "dark" | "medium";
   label?: string;
   hideLabel?: boolean;
-  options: Array<{ value: string | number; label: string }>;
+  options: Array<{ value: string | number; label: string; disabled?: boolean }>;
 }
 
 export interface MultiSelectOption {
@@ -217,6 +217,7 @@ export interface MultiSelectProps {
   placeholder?: string;
   className?: string;
   colorMode?: "light" | "dark" | "medium";
+  disabled?: boolean;
 }
 
 export interface MultiImageUploadProps {

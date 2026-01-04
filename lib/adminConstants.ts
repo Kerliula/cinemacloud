@@ -120,3 +120,8 @@ export const DUMMY_USERS: User[] = [
     "Created At": "2024-05-05",
   },
 ];
+
+export const UPLOAD_TYPES = [
+  { value: "embed", label: "Embed link", disabled: false },
+  { value: "upload", label: "Upload file", disabled: true },
+];
