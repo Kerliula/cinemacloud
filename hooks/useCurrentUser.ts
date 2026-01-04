@@ -10,7 +10,13 @@ export function useCurrentUser() {
     queryFn: async () => {
       const res = await apiClient.auth.me.get();
       const data = res.data as {
-        user: { id: number; username: string; email: string; roleId: number };
+        user: {
+          id: number;
+          username: string;
+          email: string;
+          roleId: number;
+          roleName: string;
+        };
       };
       return data.user;
     },

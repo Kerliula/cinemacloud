@@ -158,8 +158,10 @@ export interface UserMenuProps {
   onSettingsClick: () => void;
   onSignOutClick: () => void;
   onMoviesListClick: () => void;
+  onAdminClick: () => void;
   className?: string;
   id?: string;
+  isAdmin?: boolean;
 }
 
 export interface AdminStatBlock {

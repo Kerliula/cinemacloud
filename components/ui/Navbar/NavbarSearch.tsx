@@ -11,6 +11,7 @@ export default function NavbarSearch({ className }: { className?: string }) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (value.trim()) {
       router.push(`/search?q=${encodeURIComponent(value.trim())}`);
     }
@@ -41,7 +42,8 @@ export default function NavbarSearch({ className }: { className?: string }) {
           "text-xs font-medium text-white placeholder-gray-400 md:text-sm",
           "transition-base",
           "hover:border-white/60 hover:bg-white/10",
-          "focus:w-48 focus:border-white/80 focus:bg-white/15 focus:outline-none md:focus:w-64 lg:focus:w-72 xl:focus:w-80"
+          "focus:w-48 focus:border-white/80 focus:bg-white/15 focus:outline-none",
+          "md:focus:w-64 lg:focus:w-72 xl:focus:w-80"
         )}
       />
       {value && (

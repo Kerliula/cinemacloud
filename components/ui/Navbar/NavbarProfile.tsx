@@ -16,13 +16,22 @@ export default function NavbarProfile() {
   const isSignedIn = Boolean(userName);
 
   return isSignedIn ? (
-    <NavbarProfileSignedIn userName={userName} />
+    <NavbarProfileSignedIn
+      userName={userName}
+      isAdmin={currentUser?.roleName === "admin"}
+    />
   ) : (
     <NavbarProfileSignedOut />
   );
 }
 
-const NavbarProfileSignedIn = ({ userName }: { userName: string | null }) => {
+const NavbarProfileSignedIn = ({
+  userName,
+  isAdmin,
+}: {
+  userName: string | null;
+  isAdmin?: boolean;
+}) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const router = useRouter();
   const menuRef = useRef<HTMLDivElement>(null);
@@ -68,7 +77,9 @@ const NavbarProfileSignedIn = ({ userName }: { userName: string | null }) => {
         onClose={() => setIsProfileOpen(false)}
         onSettingsClick={() => router.push("/user/settings")}
         onMoviesListClick={() => router.push("/user/favorites")}
+        onAdminClick={() => router.push("/admin")}
         onSignOutClick={handleSignOutClick}
+        isAdmin={isAdmin}
       />
     </div>
   );
